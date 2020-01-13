@@ -1,0 +1,3 @@
+C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp2.2\masterList.csprojAssemblyReference.cache
+C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp2.2\masterList.AssemblyInfoInputs.cache
+C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp2.2\masterList.AssemblyInfo.cs
