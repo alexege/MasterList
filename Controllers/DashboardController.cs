@@ -22,8 +22,11 @@ namespace masterList.Controllers
             ViewBag.LastName = HttpContext.Session.GetString("LastName");
             ViewBag.UserId = SessionUser;
 
+            var words = dbContext.Words
+                .ToList();
+
             // return View("Index", "Dashboard");
-            return View();
+            return View(words);
         }
 
         [HttpPost("word/new")]
@@ -32,7 +35,10 @@ namespace masterList.Controllers
             if(ModelState.IsValid)
             {
                 dbContext.Words.Add(newWord);
-                // dbContext.SaveChanges();
+                dbContext.SaveChanges();
+                System.Console.WriteLine(newWord.Title);
+                System.Console.WriteLine(newWord.Definition);
+                System.Console.WriteLine(newWord.Example);
                 return RedirectToAction("Index", "Dashboard");
             }
             return View("Index", "Dashboard");

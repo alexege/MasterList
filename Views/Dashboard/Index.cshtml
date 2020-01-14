@@ -1,4 +1,4 @@
-@model LoginUser
+@model List<Word>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +11,24 @@
 <body>
     @* <h1>Welcome to the dashboard, @ViewBag.FirstName @ViewBag.LastName</h1> *@
 
+    @foreach(var word in Model)
+    {
+        <h2>@word.Title</h2>
+        <p>@word.Image</p>
+        <h4>Definition:</h4>
+        <p>@word.Definition</p>
+        <h4>Example:</h4>
+        <p>@word.Example</p>
+    }
+
     <form asp-action="AddWord" controller="Dashboard" method="POST">
         <label for="Title">Title</label><br>
         @* <span asp-validation-for="Title" class="error"></span> *@
         <input class="form-control" type="text" name="Title" id="Title">
 
         <label for="Definition">Definition</label><br>
-        <input class="form-control" type="text" name="Definition" id="Definition">
+        <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10"></textarea>
+        @* <input class="form-control" type="text" name="Definition" id="Definition"> *@
 
         <label for="Example">Example</label><br>
         <input class="form-control" type="text" name="Example" id="Example">
