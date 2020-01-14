@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+    <div onmouseenter="toggleNavOpen()" style="width: 5vw; height: 100vh; position: absolute; left: 0; top: 0; position: fixed;">
+
+    </div>
+
+    <iframe src=https://tech.io/snippet-widget/bZlRgsw width=100% frameborder=0 scrolling=no allowtransparency=true style=visibility:hidden>
+    </iframe>
+    <script>if(void 0===window.techioScriptInjected){window.techioScriptInjected=!0;var script=document.createElement("script");script.src="https://files.codingame.com/codingame/iframe-v-1-4.js",(document.head||document.body).appendChild(script)}</script>
+
+    <h1 class="title">Master List</h1>
+
+    <div id="mySidenav" class="sidenav" onmouseleave="toggleNavClosed()">
+
+        <a onclick="lockNav()" id="navToggleButton"><i class="fas fa-lock-open"></i></a>
+
+        <h2>Index</h2>
+        <a href="#Arrays">Arrays</a>
+        <a href="#API">API</a>
+        <a href="#Binary Search Tree">Binary Search Tree</a>
+        <a href="#Linked Lists">Lists</a>
+        <a href="#OSI Model">Model</a>
+        <a href="#TCP">TCP</a>
+        <a href="#UDP">UDP</a>
+        <a href="#REST">REST</a>
+        <a href="#Stacks">Stacks</a>
+        <a href="#Queues">Queues</a>
+        <a href="#Heaps">Heaps</a>
+        <a href="#Hashing">Hashing</a>
+        <a href="#Graph">Graph</a>
+        <a href="#Matrix">Matrix</a>
+        
+        <h5 class="category">Data Structures</h5>
+        <h5>Algorithms</h5>
+
+        <a href="#Acronym">Acronym</a>
+    </div>
+
+    <h2>Arrays</h2>
+    Definition:
+    <p class="def">Definition:</p>
+    <p>An array is a data structure to store information.</p>
+
+    <p class="ex">Example:</p>
+    <p>Example bro</p>
+
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+
+
+    <h2>Linked Lists</h2>
+    <ul>
+        <li>Singly Linked List</li>
+        <li>Doubly Linked List</li>
+        <li>Circular Linked List</li>
+        <li>Circular Doubly Linked List</li>
+    </ul>
+
+    <div style='height: 1200px;'>
+        Content
+    </div>
+
+    <h2 id="Matrix">Matrix
+        <ul>
+            <li></li>
+        </ul>
+    </h2>
+
+    <h2>Acronym</h2>
+    <script async src="//jsfiddle.net/alexege/cyt901re/embed/"></script>
+
+    <h2>Reverse String</h2>
+    <script async src="//jsfiddle.net/alexege/cyt901re/3/embed/"></script>
+
+    </div> <!--End of Main-->
+    
+    <script>
+        $(document).ready(function(){
+            if(localStorage.getItem("lockNav") == null){
+                document.getElementById("navToggleButton").innerHTML='<i class="fas fa-lock-open"></i>';
+                localStorage.setItem("lockNav", false);
+            }
+            console.log(localStorage.getItem("lockNav"));
+        })
+
+        //if(localStorage.getItem("lockNav") == null) {
+        //        console.log("Lock Nav is false");
+        //        localStorage.setItem("lockNav", "false");
+        //    }
+
+
+        function toggleNavOpen() {
+                document.getElementById("mySidenav").style.width = '20vw';
+        }
+        
+        function toggleNavClosed() {
+            if(localStorage.getItem("lockNav") == "false"){
+                document.getElementById("mySidenav").style.width = '0vw';
+            }
+        }
+
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
+        
+        function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+        }
+
+        function lockNav() {
+            if(localStorage.getItem("lockNav") == null){
+                localStorage.setItem("lockNav", "false");
+            } else if(localStorage.getItem("lockNav") == 'false'){
+                document.getElementById("navToggleButton").innerHTML='<i class="fas fa-lock"></i>';
+                localStorage.setItem("lockNav", "true");
+            } else {
+                document.getElementById("navToggleButton").innerHTML='<i class="fas fa-lock-open"></i>';
+                localStorage.setItem("lockNav", "false");
+            }
+        }
+    </script>
+
+</body>
+</html>

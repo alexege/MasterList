@@ -5,7 +5,24 @@
 <div class="text-center">
     <h1 class="display-4">Master List</h1>
 
-    <partial name="LoginPartial" />
-    <partial name="RegistrationPartial" />
+    @model LoginUser
+    <h2>Login</h2>
+    <div id="loginbox">
+    <form asp-action="Login" asp-controller="Home" method="post">
+        <div class="input-container">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" type="text" asp-for="LoginEmail" placeholder="Email">
+        </div>
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input class="input-field" type="password" asp-for="LoginPassword" placeholder="Password">
+        </div>
+        <span asp-validation-for="LoginEmail"></span>
+        <button class="btn">Login</button>
+        <div class="registration">
+            Don't have an account? <a href="/Register">Register here</a>
+        </div>
+    </form>
+    </div>
 
 </div>

@@ -14364,6 +14364,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Dashboard\\SideNavPartial.cshtml",
+      "TargetPath": "Views\\Dashboard\\SideNavPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -14376,6 +14381,11 @@
     {
       "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Home\\Register.cshtml",
+      "TargetPath": "Views\\Home\\Register.cshtml",
       "FileKind": "mvc"
     },
     {

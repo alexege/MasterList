@@ -9,7 +9,7 @@ using masterList.Models;
 namespace masterList.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200113190706_InitialMigration")]
+    [Migration("20200113215634_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,15 +29,19 @@ namespace masterList.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("UpdatedAt")

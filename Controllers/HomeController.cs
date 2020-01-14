@@ -36,6 +36,12 @@ namespace masterList.Controllers
             return View();
         }
 
+        [HttpGet("Register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost("Register")]
         public IActionResult Register(User newUser)
         {
@@ -46,7 +52,7 @@ namespace masterList.Controllers
                 if(notUnique)
                 {
                     ModelState.AddModelError("Email", "Email already in use. Please use a new one");
-                    return View("Index");
+                    return View("Register", "Home");
                 }
 
                 PasswordHasher<User> hasher = new PasswordHasher<User>();
@@ -60,11 +66,19 @@ namespace masterList.Controllers
                 // HttpContext.Session.SetInt32("UserId", last_added_User);
 
                 SessionUser = newUser.UserId;
+                HttpContext.Session.SetString("Firstname", newUser.FirstName);
+                HttpContext.Session.SetString("Lastname", newUser.LastName);
             
                 return RedirectToAction("Index", "Dashboard");
             }
-        return View("Index");
+        return View("Register");
         }
+
+        // [HttpGet("Login")]
+        // public IActionResult Login()
+        // {
+        //     return View();
+        // }
 
         [HttpPost("Login")]
         public IActionResult Login(LoginUser loginUser)
