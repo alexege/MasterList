@@ -36,11 +36,20 @@ namespace masterList.Controllers
             return View();
         }
 
-        [HttpGet("Register")]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        // [HttpGet("Register")]
+        // public IActionResult Register()
+        // {
+        //     return View();
+        // }
+
+        // [HttpGet("Dashboard")]
+        // public IActionResult Dashboard()
+        // {
+        //     // var words = dbContext.Words
+        //     //     .ToList();
+        //     // return View("Index", words);
+        //     return View("Index", "Dashboard");
+        // }
 
         [HttpPost("Register")]
         public IActionResult Register(User newUser)
@@ -69,7 +78,9 @@ namespace masterList.Controllers
                 HttpContext.Session.SetString("Firstname", newUser.FirstName);
                 HttpContext.Session.SetString("Lastname", newUser.LastName);
             
+                // return View("Index", "Dashboard");
                 return RedirectToAction("Index", "Dashboard");
+                // return RedirectToAction("Dashboard");
             }
         return View("Register");
         }
@@ -102,6 +113,10 @@ namespace masterList.Controllers
 
             SessionUser = found_user.UserId;
             
+            // return View("Index", "Dashboard");
+            // return RedirectToAction("Index", "Dashboard");
+            // return RedirectToAction("Index", "Dashboard");
+            // return RedirectToAction("Dashboard");
             return RedirectToAction("Index", "Dashboard");
         }
 

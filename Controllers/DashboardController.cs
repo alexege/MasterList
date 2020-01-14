@@ -20,9 +20,22 @@ namespace masterList.Controllers
         {
             ViewBag.FirstName = HttpContext.Session.GetString("FirstName");
             ViewBag.LastName = HttpContext.Session.GetString("LastName");
-            
             ViewBag.UserId = SessionUser;
+
+            // return View("Index", "Dashboard");
             return View();
+        }
+
+        [HttpPost("word/new")]
+        public IActionResult AddWord(Word newWord)
+        {
+            if(ModelState.IsValid)
+            {
+                dbContext.Words.Add(newWord);
+                // dbContext.SaveChanges();
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View("Index", "Dashboard");
         }
     }
 }

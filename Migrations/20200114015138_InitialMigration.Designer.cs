@@ -9,7 +9,7 @@ using masterList.Models;
 namespace masterList.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200113215634_InitialMigration")]
+    [Migration("20200114015138_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,30 @@ namespace masterList.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("masterList.Models.Word", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Example")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("Words");
                 });
 #pragma warning restore 612, 618
         }

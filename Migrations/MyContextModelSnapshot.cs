@@ -49,6 +49,30 @@ namespace masterList.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("masterList.Models.Word", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Example")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("Words");
+                });
 #pragma warning restore 612, 618
         }
     }

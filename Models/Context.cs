@@ -6,5 +6,6 @@ namespace masterList.Models
     {
         public MyContext(DbContextOptions options) : base(options) { }
         public DbSet<User> Users {get; set;}
+        public DbSet<Word> Words {get; set;}
     }
 }
