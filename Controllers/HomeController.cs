@@ -25,7 +25,6 @@ namespace masterList.Controllers
     public class HomeController : UserAccessController
     {
         private MyContext dbContext;
-		// here we can "inject" our context service into the constructor
 		public HomeController(MyContext context)
 		{
 			dbContext = context;
@@ -36,20 +35,11 @@ namespace masterList.Controllers
             return View();
         }
 
-        // [HttpGet("Register")]
-        // public IActionResult Register()
-        // {
-        //     return View();
-        // }
-
-        // [HttpGet("Dashboard")]
-        // public IActionResult Dashboard()
-        // {
-        //     // var words = dbContext.Words
-        //     //     .ToList();
-        //     // return View("Index", words);
-        //     return View("Index", "Dashboard");
-        // }
+        [HttpGet("Register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost("Register")]
         public IActionResult Register(User newUser)
@@ -71,25 +61,14 @@ namespace masterList.Controllers
                 dbContext.Users.Add(newUser);
                 dbContext.SaveChanges();
 
-                // var last_added_User = dbContext.Users.Last().UserId;
-                // HttpContext.Session.SetInt32("UserId", last_added_User);
-
                 SessionUser = newUser.UserId;
                 HttpContext.Session.SetString("Firstname", newUser.FirstName);
                 HttpContext.Session.SetString("Lastname", newUser.LastName);
             
-                // return View("Index", "Dashboard");
                 return RedirectToAction("Index", "Dashboard");
-                // return RedirectToAction("Dashboard");
             }
         return View("Register");
         }
-
-        // [HttpGet("Login")]
-        // public IActionResult Login()
-        // {
-        //     return View();
-        // }
 
         [HttpPost("Login")]
         public IActionResult Login(LoginUser loginUser)
@@ -110,13 +89,8 @@ namespace masterList.Controllers
                 ModelState.AddModelError("LoginEmail", "Email already in use. Please use a new one");
                 return View("Index");
             }
-
             SessionUser = found_user.UserId;
-            
-            // return View("Index", "Dashboard");
-            // return RedirectToAction("Index", "Dashboard");
-            // return RedirectToAction("Index", "Dashboard");
-            // return RedirectToAction("Dashboard");
+
             return RedirectToAction("Index", "Dashboard");
         }
 

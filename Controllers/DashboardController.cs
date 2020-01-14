@@ -25,7 +25,6 @@ namespace masterList.Controllers
             var words = dbContext.Words
                 .ToList();
 
-            // return View("Index", "Dashboard");
             return View(words);
         }
 
@@ -36,9 +35,6 @@ namespace masterList.Controllers
             {
                 dbContext.Words.Add(newWord);
                 dbContext.SaveChanges();
-                System.Console.WriteLine(newWord.Title);
-                System.Console.WriteLine(newWord.Definition);
-                System.Console.WriteLine(newWord.Example);
                 return RedirectToAction("Index", "Dashboard");
             }
             return View("Index", "Dashboard");

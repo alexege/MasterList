@@ -9,16 +9,24 @@
     <title>Dashboard</title>
 </head>
 <body>
-    @* <h1>Welcome to the dashboard, @ViewBag.FirstName @ViewBag.LastName</h1> *@
+    <div id="main">
+
+    <h1 class="title">Master List</h1>
 
     @foreach(var word in Model)
     {
-        <h2>@word.Title</h2>
-        <p>@word.Image</p>
-        <h4>Definition:</h4>
-        <p>@word.Definition</p>
-        <h4>Example:</h4>
-        <p>@word.Example</p>
+        <button id="@word.Title" class="collapsible">@word.Title</button>
+        <div class="content">
+            <button class="collapsible">Definition</button>
+            <div class="content">
+                <p>@word.Definition</p>
+            </div>
+            
+            <button class="collapsible">Example</button>
+            <div class="content">
+                <p>@word.Example</p>
+            </div>
+        </div>
     }
 
     <form asp-action="AddWord" controller="Dashboard" method="POST">
@@ -37,6 +45,10 @@
     </form>
 
     <partial name="SideNavPartial"/>
+
+    </div> <!--End of Main-->
+
+    </div>
 
 </body>
 </html>

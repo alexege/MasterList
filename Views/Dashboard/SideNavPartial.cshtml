@@ -1,5 +1,5 @@
-    <div id="main">
-    
+@model List<Word>    
+        
     @* SideNav Toggle Div *@
     <div onmouseenter="toggleNavOpen()" style="width: 5vw; height: 100vh; position: absolute; left: 0; top: 0; position: fixed;"></div>
 
@@ -13,67 +13,8 @@
 
         <div id="sideNavContents">
 
-
-        <a href="#Arrays">Arrays</a>
-        <a href="#API">API</a>
-        <a href="#Binary Search Tree">Binary Search Tree</a>
-        <a href="#Linked Lists">Lists</a>
-        <a href="#OSI Model">Model</a>
-        <a href="#TCP">TCP</a>
-        <a href="#UDP">UDP</a>
-        <a href="#REST">REST</a>
-        <a href="#Stacks">Stacks</a>
-        <a href="#Queues">Queues</a>
-        <a href="#Heaps">Heaps</a>
-        <a href="#Hashing">Hashing</a>
-        <a href="#Graph">Graph</a>
-        <a href="#Matrix">Matrix</a>
-        
-        <h5 class="category">Data Structures</h5>
-        <h5>Algorithms</h5>
-
-        <a href="#Acronym">Acronym</a>
+        @foreach(var word in Model){
+            <a href="#@word.Title">@word.Title</a>
+        }
         </div>
     </div>
-
-    <h2 id="Arrays">Arrays</h2>
-    Definition:
-    <p class="def">Definition:</p>
-    <p>An array is a data structure to store information.</p>
-
-    <p class="ex">Example:</p>
-    <p>Example bro</p>
-
-    <h1>H1</h1>
-    <h2>H2</h2>
-    <h3>H3</h3>
-    <h4>H4</h4>
-    <h5>H5</h5>
-    <h6>H6</h6>
-
-
-    <h2>Linked Lists</h2>
-    <ul>
-        <li>Singly Linked List</li>
-        <li>Doubly Linked List</li>
-        <li>Circular Linked List</li>
-        <li>Circular Doubly Linked List</li>
-    </ul>
-
-    <div style='height: 1200px;'>
-        Content
-    </div>
-
-    <h2 id="Matrix">Matrix
-        <ul>
-            <li></li>
-        </ul>
-    </h2>
-
-    <h2>Acronym</h2>
-    <script async src="//jsfiddle.net/alexege/cyt901re/embed/"></script>
-
-    <h2>Reverse String</h2>
-    <script async src="//jsfiddle.net/alexege/cyt901re/3/embed/"></script>
-
-    </div> <!--End of Main-->
