@@ -32,7 +32,7 @@ namespace masterList.Migrations
                 {
                     WordId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Definition = table.Column<string>(nullable: true),
                     Example = table.Column<string>(nullable: true)

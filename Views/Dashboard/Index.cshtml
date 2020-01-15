@@ -15,33 +15,77 @@
 
     @foreach(var word in Model)
     {
-        <button id="@word.Title" class="collapsible">@word.Title</button>
-        <div class="content">
-            <button class="collapsible">Definition</button>
-            <div class="content">
+        <div class="word">
+        <button id="@word.Title" class="accordion">
+            
+        <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST" style="display: inline-block;">
+            <input class="form-control" type="text" name="Title" id="Title" value="@word.Title" style="display: inline-block; width: auto;">
+            <input type="submit" value="Submit">
+        </form>
+
+            @word.Title
+
+            <a href="">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+
+        </button>
+        <div class="panel">
+            <button class="accordion">
+                Definition
+                <a href="">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </button>
+            <div class="panel">
+                
+                <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+                    <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10">@word.Definition</textarea>
+                    <button class="btn">Submit</button>
+                </form>
+
                 <p>@word.Definition</p>
             </div>
             
-            <button class="collapsible">Example</button>
-            <div class="content">
+            <button class="accordion">
+                Example
+                <a href="">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </button>
+            <div class="panel">
+                
+                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+                    <input class="form-control" type="text" name="Example" id="Example" value="@word.Example">
+                    <button class="btn">Submit</button>
+                </form>
+                
                 <p>@word.Example</p>
             </div>
+        </div>
         </div>
     }
 
     <form asp-action="AddWord" controller="Dashboard" method="POST">
         <label for="Title">Title</label><br>
-        @* <span asp-validation-for="Title" class="error"></span> *@
         <input class="form-control" type="text" name="Title" id="Title">
 
         <label for="Definition">Definition</label><br>
         <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10"></textarea>
-        @* <input class="form-control" type="text" name="Definition" id="Definition"> *@
 
         <label for="Example">Example</label><br>
         <input class="form-control" type="text" name="Example" id="Example">
 
-        <button>Submit</button>
+        <button class="btn">Submit</button>
     </form>
 
     <partial name="SideNavPartial"/>

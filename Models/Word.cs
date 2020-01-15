@@ -7,7 +7,7 @@ namespace masterList.Models
         [Key]
         public int WordId {get; set;}
 
-        [Required(ErrorMessage="Title is required.")]
+        // [Required(ErrorMessage="Title is required.")]
         public string Title { get; set; }
 
         public string Image { get; set; }

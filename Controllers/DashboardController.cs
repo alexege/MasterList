@@ -39,5 +39,52 @@ namespace masterList.Controllers
             }
             return View("Index", "Dashboard");
         }
+
+        [HttpPost("Word/UpdateTitle/{WordId}")]
+        public IActionResult UpdateWordTitle(Word editWord, int WordId)
+        {
+            Word wordToEdit = dbContext.Words
+                .FirstOrDefault(w => w.WordId == WordId);
+            if(ModelState.IsValid)
+            {
+                wordToEdit.Title = editWord.Title;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
+        
+        [HttpPost("Word/UpdateDefinition/{WordId}")]
+        public IActionResult UpdateWordDefinition(Word editWord, int WordId)
+        {
+            Word wordToEdit = dbContext.Words
+                .FirstOrDefault(w => w.WordId == WordId);
+
+            if(ModelState.IsValid)
+            {
+                wordToEdit.Definition = editWord.Definition;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
+        
+        [HttpPost("Word/UpdateExample/{WordId}")]
+        public IActionResult UpdateWordExample(Word editWord, int WordId)
+        {
+            Word wordToEdit = dbContext.Words
+                                .FirstOrDefault(w => w.WordId == WordId);
+
+            if(ModelState.IsValid)
+            {
+                wordToEdit.Example = editWord.Example;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
