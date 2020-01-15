@@ -62,30 +62,12 @@ function searchFunction() {
     }
 }
 
-// // Collapsible boxes
-// var coll = document.getElementsByClassName("collapsible");
-// var i;
-
-// for (i = 0; i < coll.length; i++) {
-//   coll[i].addEventListener("click", function() {
-//     this.classList.toggle("active");
-//     var content = this.nextElementSibling;
-//     if (content.style.maxHeight){
-//       content.style.maxHeight = null;
-//     } else {
-//        content.style.maxHeight = content.scrollHeight + "50px";
-//     } 
-//   });
-// }
-
 // Collapse Accordion
 var acc = document.getElementsByClassName("accordion");
 var i;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
     this.classList.toggle("active");
 
     /* Toggle between hiding and showing the active panel */
@@ -99,15 +81,49 @@ for (i = 0; i < acc.length; i++) {
 }
 
 function editWordTitle(event, element) {
-
+    
+    var contents = element.closest("button").querySelector(".contents");
     var isVisible = element.closest(".word").querySelector("form").style.display;
-    console.log("isVisible:", isVisible);
     
     if(isVisible == "none" || isVisible == ""){
         element.closest(".word").querySelector("form").style.display = "inline-block";
+        contents.style.display = "none";
         isVisible = "inline-block";
     } else {
         element.closest(".word").querySelector("form").style.display = "none";
+        contents.style.display = "inline-block";
+        isVisible = "none";
+    }
+}
+
+function editWordDefinition(event, element) {
+
+    var contents = element.closest("button").nextElementSibling.querySelector(".contents");
+    var isVisible = element.closest(".accordion").nextElementSibling.querySelector("form").style.display;
+    
+    if(isVisible == "none" || isVisible == ""){
+        element.closest(".accordion").nextElementSibling.querySelector("form").style.display = "block";
+        contents.style.display = "none";
+        isVisible = "block";
+    } else {
+        element.closest(".accordion").nextElementSibling.querySelector("form").style.display = "none";
+        contents.style.display = "inline-block";
+        isVisible = "none";
+    }
+}
+
+function editWordExample(event, element) {
+
+    var contents = element.closest("button").nextElementSibling.querySelector(".contents");
+    var isVisible = element.closest(".accordion").nextElementSibling.querySelector("form").style.display;
+    
+    if(isVisible == "none" || isVisible == ""){
+        element.closest(".accordion").nextElementSibling.querySelector("#updateExampleForm").style.display = "block";
+        contents.style.display = "none";
+        isVisible = "block";
+    } else {
+        element.closest(".accordion").nextElementSibling.querySelector("#updateExampleForm").style.display = "none";
+        contents.style.display = "inline-block";
         isVisible = "none";
     }
 }

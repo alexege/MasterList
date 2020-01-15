@@ -23,7 +23,9 @@
             <input type="submit" value="Update">
         </form>
 
-        @word.Title
+        <div class="contents">
+            @word.Title
+        </div>
 
         <div class="menu">
             <a onclick="editWordTitle(event, this); event.stopPropagation();">
@@ -40,7 +42,7 @@
                 Definition
 
             <div class="menu">
-                    <a href="">
+                    <a onclick="editWordDefinition(event,this); event.stopPropagation();">
                         <i class="fas fa-edit"></i>
                     </a>
                     <a href="">
@@ -51,19 +53,21 @@
             </button>
             <div class="panel">
                 
-                <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+                <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
                     <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10">@word.Definition</textarea>
                     <button class="btn">Submit</button>
                 </form>
 
-                <p>@word.Definition</p>
+                <div class="contents">
+                    @word.Definition
+                </div>
             </div>
             
             <button class="accordion">
                 Example
 
             <div class="menu">
-                    <a href="">
+                    <a onclick="editWordExample(event, this); event.stopPropagation();">
                         <i class="fas fa-edit"></i>
                     </a>
                     <a href="">
@@ -74,12 +78,15 @@
             </button>
             <div class="panel">
                 
-                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST" id="updateExampleForm">
                     <input class="form-control" type="text" name="Example" id="Example" value="@word.Example">
                     <button class="btn">Submit</button>
                 </form>
                 
-                <p>@word.Example</p>
+                <div class="contents">
+                    @word.Example
+                </div>
+
             </div>
         </div>
         </div>

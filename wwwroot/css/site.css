@@ -277,7 +277,7 @@ p {
 
 /* Edit Menu styles
 -------------------------------------------------- */
-.menu {
+.menu, .contents {
   display: inline-block;
 }
 
