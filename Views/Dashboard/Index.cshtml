@@ -18,30 +18,36 @@
         <div class="word">
         <button id="@word.Title" class="accordion">
             
-        <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST" style="display: inline-block;">
+        <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
             <input class="form-control" type="text" name="Title" id="Title" value="@word.Title" style="display: inline-block; width: auto;">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Update">
         </form>
 
-            @word.Title
+        @word.Title
 
-            <a href="">
+        <div class="menu">
+            <a onclick="editWordTitle(event, this); event.stopPropagation();">
                 <i class="fas fa-edit"></i>
             </a>
-            <a href="">
+            <a href="/Word/Delete/@word.WordId">
                 <i class="fas fa-trash-alt"></i>
             </a>
+        </div>
 
         </button>
         <div class="panel">
             <button class="accordion">
                 Definition
-                <a href="">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a href="">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
+
+            <div class="menu">
+                    <a href="">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+            </div>
+
             </button>
             <div class="panel">
                 
@@ -55,12 +61,16 @@
             
             <button class="accordion">
                 Example
-                <a href="">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a href="">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
+
+            <div class="menu">
+                    <a href="">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+            </div>
+
             </button>
             <div class="panel">
                 

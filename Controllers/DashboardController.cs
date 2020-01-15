@@ -86,5 +86,15 @@ namespace masterList.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet("Word/Delete/{WordId}")]
+        public IActionResult DeleteWord(int WordId)
+        {
+            Word wordToDelete = dbContext.Words.FirstOrDefault(w => w.WordId == WordId);
+            dbContext.Words.Remove(wordToDelete);
+            dbContext.SaveChanges();
+            
+            return RedirectToAction("Index");
+        }
     }
 }

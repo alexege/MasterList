@@ -274,3 +274,13 @@ p {
   display: none;
   overflow: hidden;
 }
+
+/* Edit Menu styles
+-------------------------------------------------- */
+.menu {
+  display: inline-block;
+}
+
+.editForm {
+  display: none;
+}
