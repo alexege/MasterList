@@ -9,7 +9,7 @@ using masterList.Models;
 namespace masterList.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200114215944_InitialMigration")]
+    [Migration("20200116002258_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

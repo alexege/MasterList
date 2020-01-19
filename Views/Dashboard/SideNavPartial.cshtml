@@ -12,7 +12,7 @@
         <div id="sideNavContents">
 
         @foreach(var word in Model){
-            <a href="#@word.Title">@word.Title</a>
+            <a href="#@word.Title" onclick="openWordAccordion('@word.Title');">@word.Title</a>
         }
         </div>
     </div>

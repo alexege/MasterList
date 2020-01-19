@@ -11,19 +11,29 @@
 <body>
     <div id="main">
 
-    <h1 class="title">Master List</h1>
+<div id="foo" contenteditable="true">Some editable text. Type in here and any 'a' will be you type will show up as a 'b'</div>
+
+    <h1 id="projectName">Master List</h1>
+
+    <p id="replace">* This is a test string</p>
 
     @foreach(var word in Model)
     {
         <div class="word">
-        <button id="@word.Title" class="accordion">
+
+        <div class="topLeft cornerPiece"></div>
+        <div class="topRight cornerPiece"></div>
+        <div class="bottomLeft cornerPiece"></div>
+        <div class="bottomRight cornerPiece"></div>
+
+        <button id="@word.Title" class="accordion accordStyle" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
             
         <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
             <input class="form-control" type="text" name="Title" id="Title" value="@word.Title" style="display: inline-block; width: auto;">
             <input type="submit" value="Update">
         </form>
 
-        <div class="contents">
+        <div class="contents title">
             @word.Title
         </div>
 
@@ -38,41 +48,45 @@
 
         </button>
         <div class="panel">
-            <button class="accordion">
-                Definition
+            <button class="accordion" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+                <h4>
+                    <i class="fas fa-caret-right"></i>
+                    Definition
+                </h4>
 
             <div class="menu">
                     <a onclick="editWordDefinition(event,this); event.stopPropagation();">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="">
+                    @* <a href="">
                         <i class="fas fa-trash-alt"></i>
-                    </a>
+                    </a> *@
             </div>
 
             </button>
             <div class="panel">
                 
                 <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
-                    <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10">@word.Definition</textarea>
+                    <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10" >@word.Definition</textarea>
                     <button class="btn">Submit</button>
                 </form>
 
-                <div class="contents">
-                    @word.Definition
-                </div>
+                <div class="contents">@word.Definition</div>
             </div>
             
-            <button class="accordion">
-                Example
+            <button class="accordion" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+                <h4>
+                    <i class="fas fa-caret-right"></i>
+                    Example
+                </h4>
 
             <div class="menu">
                     <a onclick="editWordExample(event, this); event.stopPropagation();">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="">
+                    @* <a href="">
                         <i class="fas fa-trash-alt"></i>
-                    </a>
+                    </a> *@
             </div>
 
             </button>
@@ -83,9 +97,7 @@
                     <button class="btn">Submit</button>
                 </form>
                 
-                <div class="contents">
-                    @word.Example
-                </div>
+                <div class="contents">@word.Example</div>
 
             </div>
         </div>
