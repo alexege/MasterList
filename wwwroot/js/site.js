@@ -173,37 +173,101 @@ function hideMenu(word){
     word.querySelector('.menu').style.display = "none";
 }
 
-// document.addEventListener('submit', replaceStars());
+document.addEventListener('submit', replaceStars());
 
-// function replaceStars(){
+function replaceStars(){
 
-//     var numContents = document.getElementsByClassName("contents");
+    var numContents = document.getElementsByClassName("contents");
 
-//     for(var i = 0; i < numContents.length; i++){
-//         var contents = document.getElementsByClassName("contents")[i];
-//         var numLines = (contents.innerText.match(/\n/g)||[]).length;
-//         var lines = contents.innerText.split(/\r?\n/g);
-//         var newString = '';
-//         console.log("numLines: ", numLines);
+    for(var i = 0; i < numContents.length; i++){
+        var contents = document.getElementsByClassName("contents")[i];
+        var numLines = (contents.innerText.match(/\n/g)||[]).length;
+        var lines = contents.innerText.split(/\r?\n/g);
+        var newString = '';
+        console.log("numLines: ", numLines);
 
-//         for(var j = 0; j < numLines; j++)
-//         {
-//             var k = 0;
-//             while(lines[j][k] !== "*")
-//             {
-//                 if(k == lines[j].length)
-//                 {
-//                     break;
-//                 }
-//                 k++;
-//             }
+        for(var j = 0; j <= numLines; j++)
+        {
+            var k = 0;
+            while(lines[j][k] !== "*")
+            {
+                // console.log(`lines[${j}][${k}]: ${lines[j][k]}`);
+                if(k == lines[j].length)
+                {
+                    break;
+                }
+                k++;
+                // console.log("end k:", k);
+            }
 
-//             if(lines[j][k] == "*")
-//             {
-//                 var modifiedLine = lines[j].replace("* ", "");
-//                 newString += `<li>${modifiedLine}</li>\n`;
-//             }
-//         }
-//         numContents[i].innerHTML = newString;
-//     }
-// }
+
+            if(lines[j][k] == "*")
+            {
+                var modifiedLine = lines[j].replace("*", "");
+
+                // If next character after the * is a space, ignore it.
+                if(lines[j][k+1] == " ")
+                {
+                    modifiedLine = modifiedLine.substring(k + 1, lines[j].length);
+                } else {
+                    // console.log("unmod: ", modifiedLine);
+                    modifiedLine = modifiedLine.substring(k, lines[j].length);
+                }
+
+                // console.log("k:" + k + ", len:", lines[j].length);
+                console.log("mod: ", modifiedLine);
+                newString += `<li>${modifiedLine}</li>`;
+            } else {
+                newString += lines[j] + "\n";
+            }
+        }
+        if(newString.length > 0){
+            // console.log("newstring:\n", newString);
+            numContents[i].innerHTML = newString;
+        }
+    }
+}
+
+// Check if user entered anythign into the edit box
+var contents = document.getElementsByClassName("contents");
+for(var i = 0; i < contents.length; i++){
+    var count = 0;
+    contents[i].addEventListener("input", function(){
+        console.log("Input fired");
+        count++;
+    }, false);
+
+    var wordId = contents[i].closest(".word").getAttribute("id");
+    console.log("Word id: " , wordId);
+
+    contents[i].addEventListener("focusout", function(){
+        if(count > 0){
+            console.log("You wrote something!");
+
+            console.log("this:", this.innerText);
+            var formData = this.innerText;
+
+            fetch(`/Word/UpdateDefinition/${wordId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({ Definition: formData})
+            })
+            .then(res => {
+                document.getElementById("ContentsPanel").innerHTML = formData;
+                console.log(res);
+                replaceStars();
+            })
+            .catch(err => {
+                console.log("Error found: ", err);
+            });
+        } else {
+            console.log("Nothing was written");
+        }
+        count = 0;
+    }, false);
+}
+// document.getElementsByClassName("contents").addEventListener("input", function() {
+//     console.log("input event fired");
+// }, false);

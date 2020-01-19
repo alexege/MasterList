@@ -56,7 +56,7 @@ namespace masterList.Controllers
         }
         
         [HttpPost("Word/UpdateDefinition/{WordId}")]
-        public IActionResult UpdateWordDefinition(Word editWord, int WordId)
+        public IActionResult UpdateWordDefinition([FromBody] Word editWord, int WordId)
         {
             Word wordToEdit = dbContext.Words
                 .FirstOrDefault(w => w.WordId == WordId);
@@ -66,6 +66,11 @@ namespace masterList.Controllers
                 wordToEdit.Definition = editWord.Definition;
                 dbContext.SaveChanges();
 
+                System.Console.WriteLine("Title:", wordToEdit.Title);
+                System.Console.WriteLine("Definition:", wordToEdit.Definition);
+                System.Console.WriteLine("Example:", wordToEdit.Example);
+
+                // return PartialView("Content", editWord);
                 return RedirectToAction("Index", "Dashboard");
             }
             return RedirectToAction("Index");

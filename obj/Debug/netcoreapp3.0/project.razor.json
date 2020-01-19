@@ -14344,6 +14344,11 @@
   "RootNamespace": "masterList",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Dashboard\\Content.cshtml",
+      "TargetPath": "Views\\Dashboard\\Content.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"

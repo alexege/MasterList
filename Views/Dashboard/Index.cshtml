@@ -28,7 +28,7 @@
 
     @foreach(var word in Model)
     {
-        <div class="word">
+        <div class="word" id="@word.WordId">
 
         <div class="topLeft cornerPiece"></div>
         <div class="topRight cornerPiece"></div>
@@ -80,7 +80,7 @@
                     <button class="btn">Submit</button>
                 </form>
 
-                <div class="contents">@word.Definition</div>
+                <div class="contents" contenteditable="true" id="ContentsPanel">@word.Definition</div>
             </div>
             
             <button class="accordion" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
