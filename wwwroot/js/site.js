@@ -210,34 +210,120 @@ function hideMenu(word){
 //     // console.log(element.value);
 // }
 
-var content = document.getElementsByClassName("contents");
-console.log(content);
-for(var i = 0; i < content.length; i++){
-    console.log("content:", content[i].innerText);
-    var idx = 0;
-    if(content[i].innerText[idx] == " "){
-        while(content[i].innerText[idx] == " "){
-            idx++;
-        }
-    }
-    if(content[i].innerText[idx] == '*'){
-        console.log("Starts with a *");
+// var content = document.getElementsByClassName("contents");
+// console.log(content);
+// for(var i = 0; i < content.length; i++){
+//     console.log("content:", content[i].innerText);
+//     var idx = 0;
+//     if(content[i].innerText[idx] == " "){
+//         while(content[i].innerText[idx] == " "){
+//             idx++;
+//         }
+//     }
+//     if(content[i].innerText[idx] == '*'){
+//         // console.log("Starts with a *");
 
-        console.log(content[i]);
+//         // console.log(content[i]);
 
-        content[i].innerHTML = `<li>${content[i].innerText}</li>`;
+//         content[i].innerHTML = `<li>${content[i].innerText}</li>`;
         
-        // var newstr = document.createTextNode(content[i].innerText);
-        // newstr.setAttribute()
-        // prepend("<li>");
-        // newstr.append("</li>");
-        // document.body.append(newstr);
-        // content[i].innerText.replace("*", "--");
-        // content.value.replace("*", "--");
+//         // var newstr = document.createTextNode(content[i].innerText);
+//         // newstr.setAttribute()
+//         // prepend("<li>");
+//         // newstr.append("</li>");
+//         // document.body.append(newstr);
+//         // content[i].innerText.replace("*", "--");
+//         // content.value.replace("*", "--");
+//     }
+// }
+
+// var replace = document.getElementById("replace").innerText;
+// replace.replace("string", "doggo");
+// console.log("replace:", replace);
+
+// $(document).on('submit', 'form', function(){
+//     console.log("Replacing stars");
+//     replaceStars();
+// });
+
+document.addEventListener('submit', replaceStars());
+
+function replaceStars(){
+
+    var numContents = document.getElementsByClassName("contents");
+
+    for(var i = 0; i < numContents.length; i++){
+        var contents = document.getElementsByClassName("contents")[i];
+        var numLines = (contents.innerText.match(/\n/g)||[]).length;
+        var lines = contents.innerText.split(/\r?\n/g);
+        var newString = '';
+        console.log("numLines: ", numLines);
+
+        for(var j = 0; j < numLines; j++)
+        {
+            var k = 0;
+            while(lines[j][k] !== "*")
+            {
+                if(k == lines[j].length)
+                {
+                    break;
+                }
+                k++;
+            }
+
+            if(lines[j][k] == "*")
+            {
+                var modifiedLine = lines[j].replace("* ", "");
+                newString += `<li>${modifiedLine}</li>\n`;
+            }
+        }
+        numContents[i].innerHTML = newString;
     }
 }
+//     // Find strings starting with *s
+//     var enteredText = document.getElementsByClassName("contents")[1].innerText;
+//     var numberOfLineBreaks = (enteredText.match(/\n/g)||[]).length;
+//     var characterCount = enteredText.length + numberOfLineBreaks;
 
+//     var splits = enteredText.split(/\r?\n/g);
+//     var newString  = '';
 
-var replace = document.getElementById("replace").innerText;
-replace.replace("string", "doggo");
-console.log("replace:", replace);
+//     for(var i = 0; i < numberOfLineBreaks; i++)
+//     {
+//         var j = 0;
+//         while(splits[i][j] != "*")
+//         {
+//             if(j == splits[i].length){
+//                 break;
+//             }
+//             j++;
+//         }
+//         if(splits[i][j] == "*")
+//         {
+//             var modified = splits[i].replace("* ", "");
+//             console.log("modified:\n", modified);
+//             newString += `<li>${modified}</li>\n`;
+//         }
+//     }
+
+//     console.log("newString:\n", newString);
+//     var current = document.getElementsByClassName("contents")[1];
+//     current.innerHTML = newString;
+//     console.log("newString:\n", newString);
+
+// }
+
+// var content = document.getElementsByClassName("contents");
+// console.log(content);
+// for(var i = 0; i < content.length; i++){
+//     console.log("content:", content[i].innerText);
+//     var idx = 0;
+//     if(content[i].innerText[idx] == " "){
+//         while(content[i].innerText[idx] == " "){
+//             idx++;
+//         }
+//     }
+//     if(content[i].innerText[idx] == '*'){
+//         content[i].innerHTML = `<li>${content[i].innerText}</li>`;
+//     }
+// }
