@@ -38,7 +38,7 @@
         <button id="@word.Title" class="accordion accordStyle" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
             
         <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
-            <input class="form-control" type="text" name="Title" id="Title" value="@word.Title" style="display: inline-block; width: auto;">
+            <input class="form-control" type="text" name="Title" value="@word.Title" style="display: inline-block; width: auto;">
             <input type="submit" value="Update">
         </form>
 
@@ -76,7 +76,7 @@
             <div class="panel">
                 
                 <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
-                    <textarea class="form-control" name="Definition" id="Definition" cols="20" rows="10" >@word.Definition</textarea>
+                    <textarea class="form-control" name="Definition" cols="20" rows="10" >@word.Definition</textarea>
                     <button class="btn">Submit</button>
                 </form>
 
@@ -101,8 +101,8 @@
             </button>
             <div class="panel">
                 
-                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST" id="updateExampleForm">
-                    <input class="form-control" type="text" name="Example" id="Example" value="@word.Example">
+                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" class="editForm updateExampleForm" controller="Dashboard" method="POST">
+                    <input class="form-control Example" type="text" name="Example" value="@word.Example">
                     <button class="btn">Submit</button>
                 </form>
                 
