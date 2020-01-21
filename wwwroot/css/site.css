@@ -342,6 +342,10 @@ button:focus, input[type="button"]:focus {
 
 /* Edit Menu styles
 -------------------------------------------------- */
+.contents p {
+  margin: 0;
+}
+
 .menu, .contents {
   display: inline-block;
 }
@@ -356,4 +360,8 @@ button:focus, input[type="button"]:focus {
 
 .menu {
   display: none;
+}
+
+.hide {
+  opacity: 0;
 }

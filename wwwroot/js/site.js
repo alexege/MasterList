@@ -184,7 +184,6 @@ function replaceStars(){
         var numLines = (contents.innerText.match(/\n/g)||[]).length;
         var lines = contents.innerText.split(/\r?\n/g);
         var newString = '';
-        console.log("numLines: ", numLines);
 
         for(var j = 0; j <= numLines; j++)
         {
@@ -200,29 +199,23 @@ function replaceStars(){
                 // console.log("end k:", k);
             }
 
-
             if(lines[j][k] == "*")
             {
-                var modifiedLine = lines[j].replace("*", "");
+                // var modifiedLine = lines[j].replace("*", "");
+                var modifiedLine = lines[j];
 
-                // If next character after the * is a space, ignore it.
-                if(lines[j][k+1] == " ")
-                {
-                    modifiedLine = modifiedLine.substring(k + 1, lines[j].length);
-                } else {
-                    // console.log("unmod: ", modifiedLine);
-                    modifiedLine = modifiedLine.substring(k, lines[j].length);
+                modifiedLine = lines[j].replace("*", "<span class='hide'>*</span>");
+                
+                if(lines[j][k+1] == " "){
+                    modifiedLine = lines[j].replace("* ", "<span class='hide'>*</span>");
                 }
 
-                // console.log("k:" + k + ", len:", lines[j].length);
-                console.log("mod: ", modifiedLine);
                 newString += `<li>${modifiedLine}</li>`;
             } else {
-                newString += lines[j] + "\n";
+                newString += `<p>${lines[j]}</p>`;
             }
         }
         if(newString.length > 0){
-            // console.log("newstring:\n", newString);
             numContents[i].innerHTML = newString;
         }
     }
@@ -233,20 +226,17 @@ var contents = document.getElementsByClassName("contents");
 for(var i = 0; i < contents.length; i++){
     var count = 0;
     contents[i].addEventListener("input", function(){
-        console.log("Input fired");
         count++;
     }, false);
 
-    var wordId = contents[i].closest(".word").getAttribute("id");
-    console.log("Word id: " , wordId);
-
     contents[i].addEventListener("focusout", function(){
+        var wordId = this.closest(".word").getAttribute("id");
         if(count > 0){
-            console.log("You wrote something!");
+            console.log("You wrote: \n" + this.innerText);
 
-            console.log("this:", this.innerText);
             var formData = this.innerText;
 
+            console.log("Fetching: /Word/UpdateDefinition/" + wordId);
             fetch(`/Word/UpdateDefinition/${wordId}`, {
                 method: 'POST',
                 headers: {
@@ -255,7 +245,7 @@ for(var i = 0; i < contents.length; i++){
                 body: JSON.stringify({ Definition: formData})
             })
             .then(res => {
-                document.getElementById("ContentsPanel").innerHTML = formData;
+                // document.getElementById("ContentsPanel").innerHTML = formData;
                 console.log(res);
                 replaceStars();
             })
