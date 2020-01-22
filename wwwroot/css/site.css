@@ -262,7 +262,7 @@ p {
 .word {
   position: relative;
   margin: 1rem;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
 }
 
 .cornerPiece {
@@ -312,6 +312,10 @@ button:focus, input[type="button"]:focus {
   outline: none;
 }
 
+button:hover {
+  background-color: #f1f1f1;
+}
+
 .accordion:after {
   content: '\002B';
   color: white;
@@ -322,6 +326,7 @@ button:focus, input[type="button"]:focus {
 
 .active:after {
   content: "\2212";
+  color: black;
 }
 
 .content {
@@ -335,7 +340,7 @@ button:focus, input[type="button"]:focus {
 /* Style the accordion panel. Note: hidden by default */
 .panel {
   padding: 0 18px;
-  background-color: white;
+  /* background-color: white; */
   display: none;
   overflow: hidden;
 }
@@ -352,6 +357,7 @@ button:focus, input[type="button"]:focus {
 
 .panel .contents {
   white-space: pre;
+  width: 100%;
 }
 
 .editForm {
@@ -364,4 +370,9 @@ button:focus, input[type="button"]:focus {
 
 .hide {
   opacity: 0;
+  /* display: none; */
+}
+
+.selection {
+  background-color: #f1f1f1;
 }

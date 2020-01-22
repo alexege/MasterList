@@ -11,6 +11,13 @@
 <body>
     <div id="main">
 
+        <div id="changes">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus  gravida magna, quis interdum magna mattis quis. Fusce tempor sagittis  varius. Nunc at augue at erat suscipit bibendum id nec enim. Sed eu odio  quis turpis hendrerit sagittis id sit amet justo. Cras ac urna purus,  non rutrum nunc. Aenean nec vulputate ante. Morbi scelerisque sagittis  hendrerit. Pellentesque habitant morbi tristique senectus et netus et  malesuada fames ac turpis egestas. Nulla tristique ligula fermentum  tortor semper at consectetur erat aliquam. Sed gravida consectetur  sollicitudin. 
+        </div>
+        <input type="button" onclick="highlight();" value="Highlight"/>
+        <input type="button" onclick="addBullet();" value="Bullet"/>
+        <input type="button" onclick="addItalics();" value="Italics"/>
+
         @* https://vimeo.com/385937162 *@
         @* <iframe width="1519" height="562" src="https://www.youtube.com/embed/c2ETTpDty7I?rel=0;&autoplay=1&mute=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> *@
         @* https://player.vimeo.com/video/385937162?background=1 *@
@@ -30,14 +37,14 @@
         <div class="bottomLeft cornerPiece"></div>
         <div class="bottomRight cornerPiece"></div>
 
-        <button id="@word.Title" class="accordion accordStyle" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+        <button id="@word.Title" class="accordion accordStyle wordButton" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
             
-        <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
+        @* <form asp-action="UpdateWordTitle" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
             <input class="form-control" type="text" name="Title" value="@word.Title" style="display: inline-block; width: auto;">
             <input type="submit" value="Update">
-        </form>
+        </form> *@
 
-        <div class="contents title">
+        <div class="contents title" contenteditable="true" onclick="event.stopPropagation();">
             @word.Title
         </div>
 
@@ -52,7 +59,7 @@
 
         </button>
         <div class="panel">
-            <button class="accordion" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+            <button class="accordion definition" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
                 <h4>
                     <i class="fas fa-caret-right"></i>
                     Definition
@@ -70,15 +77,15 @@
             </button>
             <div class="panel">
                 
-                <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
+                @* <form asp-action="UpdateWordDefinition" asp-route-WordId="@word.WordId" class="editForm" controller="Dashboard" method="POST">
                     <textarea class="form-control" name="Definition" cols="20" rows="10" >@word.Definition</textarea>
                     <button class="btn">Submit</button>
-                </form>
+                </form> *@
 
-                <div class="contents" contenteditable="true">@word.Definition</div>
+                <div class="contents" contenteditable="true" id="definitionBox">@word.Definition</div>
             </div>
             
-            <button class="accordion" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+            <button class="accordion example" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
                 <h4>
                     <i class="fas fa-caret-right"></i>
                     Example
@@ -96,12 +103,12 @@
             </button>
             <div class="panel">
                 
-                <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" class="editForm updateExampleForm" controller="Dashboard" method="POST">
+                @* <form asp-action="UpdateWordExample" asp-route-WordId="@word.WordId" class="editForm updateExampleForm" controller="Dashboard" method="POST">
                     <input class="form-control Example" type="text" name="Example" value="@word.Example">
                     <button class="btn">Submit</button>
-                </form>
+                </form> *@
                 
-                <div class="contents">@word.Example</div>
+                <div class="contents" contenteditable="true">@word.Example</div>
 
             </div>
         </div>

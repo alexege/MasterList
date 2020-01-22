@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace masterList.Controllers
 {
@@ -24,7 +26,7 @@ namespace masterList.Controllers
 
             var words = dbContext.Words
                 .ToList();
-
+                
             return View(words);
         }
 
@@ -39,51 +41,17 @@ namespace masterList.Controllers
             }
             return View("Index", "Dashboard");
         }
-
-        [HttpPost("Word/UpdateTitle/{WordId}")]
-        public IActionResult UpdateWordTitle(Word editWord, int WordId)
+        
+        [HttpPost("Word/UpdateWord/{WordId}")]
+        public IActionResult UpdateWord([FromBody] Word editWord, int WordId)
         {
             Word wordToEdit = dbContext.Words
                 .FirstOrDefault(w => w.WordId == WordId);
+
             if(ModelState.IsValid)
             {
                 wordToEdit.Title = editWord.Title;
-                dbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return RedirectToAction("Index");
-        }
-        
-        [HttpPost("Word/UpdateDefinition/{WordId}")]
-        public IActionResult UpdateWordDefinition([FromBody] Word editWord, int WordId)
-        {
-            Word wordToEdit = dbContext.Words
-                .FirstOrDefault(w => w.WordId == WordId);
-
-            if(ModelState.IsValid)
-            {
                 wordToEdit.Definition = editWord.Definition;
-                dbContext.SaveChanges();
-
-                System.Console.WriteLine("Title:", wordToEdit.Title);
-                System.Console.WriteLine("Definition:", wordToEdit.Definition);
-                System.Console.WriteLine("Example:", wordToEdit.Example);
-
-                // return PartialView("Content", editWord);
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return RedirectToAction("Index");
-        }
-        
-        [HttpPost("Word/UpdateExample/{WordId}")]
-        public IActionResult UpdateWordExample(Word editWord, int WordId)
-        {
-            Word wordToEdit = dbContext.Words
-                                .FirstOrDefault(w => w.WordId == WordId);
-
-            if(ModelState.IsValid)
-            {
                 wordToEdit.Example = editWord.Example;
                 dbContext.SaveChanges();
 
