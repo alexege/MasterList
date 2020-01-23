@@ -182,7 +182,7 @@ function replaceStars(){
     //Loop through every contents container
     for(var i = 0; i < contents.length; i++){
 
-        console.log("outer:", contents[i].outerHTML);
+        // console.log("outer:", contents[i].outerHTML);
 
         var content = contents[i];
         var numLines = (content.innerText.match(/\n/g)||[]).length;
@@ -211,107 +211,113 @@ function replaceStars(){
                 k++;
             }
 
-            // If an asteric is found, create a li node and append the contents to it
-            if(line[j][k] == "*")
+
+            var content = line[j];
+            var modifiedLine = '';
+
+            if(line[j].slice(0,2) == "* "){
+                modifiedLine = line[j].replace("* ", "<span class='hide' contentEditable='false'>*</span>");
+                newString += `<li class="indent0">${modifiedLine}</li>`;
+            } else if (line[j].slice(0,1) == "*"){
+                modifiedLine = line[j].replace("*", "<span class='hide' contentEditable='false'>*</span>");
+                newString += `<li class="indent0">${modifiedLine}</li>`;
+            } else if (line[j].slice(0,2) == "\\t"){
+                modifiedLine = line[j].replace("*", "<span class='hide' contentEditable='false'>*</span>");
+                newString += `<li class="indent1">${modifiedLine}</li>`;
+            } else {
+                if(line[j].length > 0){
+                    newString += `<p>${line[j]}</p>`
+                }
+            }
+
+            // // If an asteric is found, create a li node and append the contents to it
+            // if(line[j][k] == "*")
+            // {
+            //     console.log("Bullet found");
+
+            //     // console.log(document.getElementById("definitionBox").innerHTML);
+            //     // console.log(document.getElementById("definitionBox").outerHTML);
+
+            //     var modifiedLine = line[j].replace("*", "<span class='hide' contentEditable='false'>*</span>");
+                
+            //     if(line[j][k+1] == " "){
+            //         modifiedLine = line[j].replace("* ", "<span class='hide' contentEditable='false'>*</span>");
+            //     }
+
+            //     newString += `<li class="indent0">${modifiedLine}</li>`;
+            // } else {
+            //     newString += `<p>${line[j]}</p>`;
+            // }
+        }
+        // if(newString.length > 0){
+        //     contents[i].innerHTML = newString;
+        // // }
+        // }
+    }
+}
+
+// On submit, replace asterics with bullet points
+document.addEventListener('submit', replaceStars());
+
+function replaceStars(){
+
+    var numContents = document.getElementsByClassName("contents");
+
+    for(var i = 1; i < numContents.length; i++){
+        var contents = document.getElementsByClassName("contents")[i];
+        var numLines = (contents.innerText.match(/\n/g)||[]).length;
+        var lines = contents.innerText.split(/\r?\n/g);
+
+        var lines2Length = (contents.innerText.match(/\n/g)||[]).length;
+        // console.log("contents:", contents.innerHTML);
+        var lines2 = contents.innerHTML.split(/\r?\n/g);
+        // console.log("lines2split:", lines2);
+        var lines2 = contents.innerHTML.split("\n");
+        // console.log("lines2Length:", lines2Length);
+        // console.log("lines2:", lines2);
+
+        var newString = '';
+
+        for(var l = 0; l <= lines2Length; l++){
+            if(lines2[l].length > 0){
+                // console.log(lines2[l]);
+            }
+        }
+
+        for(var j = 0; j <= numLines; j++)
+        {
+
+            // console.log("this:", lines2[j]);
+
+
+            var k = 0;
+            while(lines[j][k] !== "*")
             {
-                console.log("Bullet found");
+                if(k == lines[j].length)
+                {
+                    break;
+                }
+                k++;
+            }
 
-                // console.log(document.getElementById("definitionBox").innerHTML);
-                console.log(document.getElementById("definitionBox").outerHTML);
-
-                // line[j] = `<li>${line[j]}</li>`;
-
-                // newString += line[j];
+            if(lines[j][k] == "*")
+            {
+                var modifiedLine = lines[j].replace("*", "<span class='hide'>*</span>");
                 
-
-                // var selection = line[j].getRangeAt(0);
-                // console.log("selectio:", selection);
-                // // var selectedText = selection.extractContents();
-                // var span = document.createElement("li");
-                // // span.appendChild(selectedText);
-                // span.appendChild(selection);
-                // selection.insertNode(span);
-
-                var modifiedLine = line[j].replace("*", "<span class='hide' contentEditable='false'>*</span>");
-                
-                if(line[j][k+1] == " "){
-                    modifiedLine = line[j].replace("* ", "<span class='hide' contentEditable='false'>*</span>");
+                if(lines[j][k+1] == " "){
+                    modifiedLine = lines[j].replace("* ", "<span class='hide'>*</span>");
                 }
 
                 newString += `<li>${modifiedLine}</li>`;
             } else {
-                newString += `<p>${line[j]}</p>`;
+                newString += `<p>${lines[j]}</p>`;
             }
         }
         if(newString.length > 0){
-            contents[i].innerHTML = newString;
-        // }
+            numContents[i].innerHTML = newString;
         }
     }
 }
-
-// // On submit, replace asterics with bullet points
-// document.addEventListener('submit', replaceStars());
-
-// function replaceStars(){
-
-//     var numContents = document.getElementsByClassName("contents");
-
-//     for(var i = 1; i < numContents.length; i++){
-//         var contents = document.getElementsByClassName("contents")[i];
-//         var numLines = (contents.innerText.match(/\n/g)||[]).length;
-//         var lines = contents.innerText.split(/\r?\n/g);
-
-//         var lines2Length = (contents.innerText.match(/\n/g)||[]).length;
-//         console.log("contents:", contents.innerHTML);
-//         var lines2 = contents.innerHTML.split(/\r?\n/g);
-//         console.log("lines2split:", lines2);
-//         var lines2 = contents.innerHTML.split("\n");
-//         // console.log("lines2Length:", lines2Length);
-//         console.log("lines2:", lines2);
-
-//         var newString = '';
-
-//         for(var l = 0; l <= lines2Length; l++){
-//             if(lines2[l].length > 0){
-//                 console.log(lines2[l]);
-//             }
-//         }
-
-//         for(var j = 0; j <= numLines; j++)
-//         {
-
-//             // console.log("this:", lines2[j]);
-
-
-//             var k = 0;
-//             while(lines[j][k] !== "*")
-//             {
-//                 if(k == lines[j].length)
-//                 {
-//                     break;
-//                 }
-//                 k++;
-//             }
-
-//             if(lines[j][k] == "*")
-//             {
-//                 var modifiedLine = lines[j].replace("*", "<span class='hide'>*</span>");
-                
-//                 if(lines[j][k+1] == " "){
-//                     modifiedLine = lines[j].replace("* ", "<span class='hide'>*</span>");
-//                 }
-
-//                 newString += `<li>${modifiedLine}</li>`;
-//             } else {
-//                 newString += `<p>${lines[j]}</p>`;
-//             }
-//         }
-//         if(newString.length > 0){
-//             numContents[i].innerHTML = newString;
-//         }
-//     }
-// }
 
 // Check if user entered anythign into the edit box
 var contents = document.getElementsByClassName("contents");
@@ -322,36 +328,30 @@ for(var i = 0; i < contents.length; i++){
     }, false);
 
     contents[i].addEventListener("focusout", function(){
-        console.log("selection:", window.getSelection().toString());
-
         console.log("Focus Out Event Fired");
+        
         var word =  this.closest(".word");
-        var wordId = word.getAttribute("id");
+        var WordId = word.getAttribute("id");
+
+        console.log("WordId:", WordId);
+        console.log("this: ", this);
+
+        var NoteId = 1;
         if(count > 0){
             // console.log("You wrote: \n" + this.innerText);
             var DefinitionData = this.innerText;
 
-            console.log("this:inner:", this.innerHTML);
-
             //Title
             var TitleData = contents[0].innerText;
             // console.log("TitleData:", TitleData);
-            
-            //Definition
-            var DefinitionData = contents[1].innerText;
-            // console.log("DefinitionData:", DefinitionData);
-            
-            //Example
-            var ExampleData = contents[2].innerText;
-            // console.log("ExampleData:", ExampleData);
 
             // Fetch API to send request to update definition
-            fetch(`/Word/UpdateWord/${wordId}`, {
+            fetch(`Word/${WordId}/UpdateNote/${NoteId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify({Title: TitleData, Definition: DefinitionData, Example: ExampleData})
+                body: JSON.stringify({Title: TitleData})
             })
             .then(res => {
                 console.log(res);
@@ -366,6 +366,7 @@ for(var i = 0; i < contents.length; i++){
         count = 0;
     }, false);
 }
+
 // var lastKeyCode = '';
 // var inputFields = document.querySelectorAll(".panel");
 // for(var i = 0; i < inputFields.length; i++){
@@ -424,42 +425,26 @@ for(var i = 0; i < contents.length; i++){
 //     }
 // })
 
+// function openAll(){
+//     var panels = document.getElementsByClassName("panel");
+//     console.log("panels:", panels);
+//     for(var i = 0; i < panels.length; i++){
+//         console.log("panel:" + i + ": " + panels[i]);
+//         // var content = panels.querySelectorAll(".contents");
+//         // console.log("Contents:", content);
+//     }
+// }
 
 
-function highlight()
-{
-    var selection= window.getSelection().getRangeAt(0);
-    var selectedText = selection.extractContents();
-    var span= document.createElement("span");
-    span.style.backgroundColor = "yellow";
-    span.appendChild(selectedText);
-    selection.insertNode(span);
-}
 
-function addBullet()
-{
-    var selection= window.getSelection().getRangeAt(0);
-    var selectedText = selection.extractContents();
-    var span= document.createElement("li");
-    // span.style.backgroundColor = "yellow";
-    span.appendChild(selectedText);
-    selection.insertNode(span);
-    console.log(document.getElementById("changes").innerHTML);
-}
-
-function addItalics()
-{
-    var selection= window.getSelection().getRangeAt(0);
-    var selectedText = selection.extractContents();
-    var span= document.createElement("span");
-    span.style.fontStyle = "Italic";
-    span.appendChild(selectedText);
-    selection.insertNode(span);
-}
-
-// var parser = new DOMParser();
-// var text = document.getElementById("definitionBox").innerHTML;
-// console.log("text:", text);
-// xmlDoc = parser.parseFromString(text, "text/html");
-// console.log("xml:", xmlDoc);
-// xmlDoc.getElementsByTagName("li");
+// // Detect tab press inside edit area, change class to next edit
+// var contents = document.getElementsByClassName("contents");
+// var lastKeyCode = '';
+// for(var i = 0; i < contents.length; i++){
+//     contents[i].addEventListener("keydown", function(e){
+//         console.log("Key pressed:", e.keyCode);
+//         if(e.keyCode == 9){
+//             console.log("this", this);
+//         }
+//     })
+// }

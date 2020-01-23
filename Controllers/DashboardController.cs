@@ -25,9 +25,15 @@ namespace masterList.Controllers
             ViewBag.UserId = SessionUser;
 
             var words = dbContext.Words
+                .Include(word => word.Notes)
                 .ToList();
-                
+
+            // var notes = dbContext.Notes
+            //     .Include(note => note.Word)
+            //     .ToList();
+
             return View(words);
+            // return View(notes);
         }
 
         [HttpPost("word/new")]
@@ -37,6 +43,21 @@ namespace masterList.Controllers
             {
                 dbContext.Words.Add(newWord);
                 dbContext.SaveChanges();
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View("Index", "Dashboard");
+        }
+
+        [HttpPost("word/note/new")]
+        public IActionResult AddNote(Note newNote, int WordId)
+        {
+            if(ModelState.IsValid)
+            {
+                newNote.WordId = WordId;
+                newNote.Word = dbContext.Words.FirstOrDefault(word => word.WordId == WordId);
+                dbContext.Notes.Add(newNote);
+                dbContext.SaveChanges();
+                
                 return RedirectToAction("Index", "Dashboard");
             }
             return View("Index", "Dashboard");
@@ -51,8 +72,22 @@ namespace masterList.Controllers
             if(ModelState.IsValid)
             {
                 wordToEdit.Title = editWord.Title;
-                wordToEdit.Definition = editWord.Definition;
-                wordToEdit.Example = editWord.Example;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index");
+        }
+        
+        [HttpPost("Word/{WordId}/UpdateNote/{NoteId}")]
+        public IActionResult UpdateNote([FromBody] Word editWord, int WordId)
+        {
+            Word wordToEdit = dbContext.Words
+                .FirstOrDefault(w => w.WordId == WordId);
+
+            if(ModelState.IsValid)
+            {
+                wordToEdit.Title = editWord.Title;
                 dbContext.SaveChanges();
 
                 return RedirectToAction("Index", "Dashboard");

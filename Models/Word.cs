@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace masterList.Models
@@ -6,14 +7,7 @@ namespace masterList.Models
     {
         [Key]
         public int WordId {get; set;}
-
-        // [Required(ErrorMessage="Title is required.")]
         public string Title { get; set; }
-
-        public string Image { get; set; }
-
-        public string Definition { get; set; }
-
-        public string Example { get; set; }
+        public List<Note> Notes { get; set; }
     }
 }

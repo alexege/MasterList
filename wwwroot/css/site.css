@@ -316,7 +316,7 @@ button:hover {
   background-color: #f1f1f1;
 }
 
-.accordion:after {
+/* .accordion:after {
   content: '\002B';
   color: white;
   font-weight: bold;
@@ -327,7 +327,7 @@ button:hover {
 .active:after {
   content: "\2212";
   color: black;
-}
+} */
 
 .content {
   padding: 0 18px;
@@ -375,4 +375,25 @@ button:hover {
 
 .selection {
   background-color: #f1f1f1;
+}
+
+/* Indentation styles
+-------------------------------------------------- */
+.indent0 {
+  margin-left: 0px;
+}
+.indent1 {
+  margin-left: 20px;
+}
+.indent2 {
+  margin-left: 40px;
+}
+.indent3 {
+  margin-left: 60px;
+}
+.indent4 {
+  margin-left: 80px;
+}
+.indent5 {
+  margin-left: 100px;
 }
