@@ -158,7 +158,7 @@ body {
 
 /* Sidenav styles
 -------------------------------------------------- */
-h2 {
+.title h2 {
   text-align: center;
 }
 
@@ -302,7 +302,7 @@ p {
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .word:first-child .active, .accordionStyle:hover {
   /* background-color: black; */
-  border-bottom: 4px solid black;
+  /* border-bottom: 4px solid black; */
   /* border-left: 6px solid black; */
   text-decoration: none;
   animation: all 5s;
@@ -383,21 +383,40 @@ button:hover {
 
 /* Indentation styles
 -------------------------------------------------- */
-.indent0 {
+.indent_0 {
   margin-left: 0px;
 }
-.indent1 {
+.indent_1 {
   margin-left: 20px;
 }
-.indent2 {
+.indent_2 {
   margin-left: 40px;
 }
-.indent3 {
+.indent_3 {
   margin-left: 60px;
 }
-.indent4 {
+.indent_4 {
   margin-left: 80px;
 }
-.indent5 {
+.indent_5 {
   margin-left: 100px;
+}
+.indent_6 {
+  margin-left: 120px;
+}
+.indent_7 {
+  margin-left: 140px;
+}
+.indent_8 {
+  margin-left: 160px;
+}
+
+.align_0 {
+  text-align: left;
+}
+.align_1 {
+  text-align: center;
+}
+.align_2 {
+  text-align: right;
 }

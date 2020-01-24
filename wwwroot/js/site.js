@@ -4,8 +4,18 @@ $(document).ready(function(){
         document.getElementById("navToggleButton").innerHTML='<i class="fas fa-lock-open"></i>';
         localStorage.setItem("lockNav", false);
     }
-    applyFocusOutEvent();
+    AddEventListeners();
 })
+
+function AddEventListeners(){
+    collapseAccordion();
+    applyFocusOutEvent();
+    toggleBulletPoint();
+    indentNote();
+    outdentNote();
+    deleteNote();
+    changeStyle();
+}
 
 function toggleNavOpen() {
         document.getElementById("mySidenav").style.width = '20vw';
@@ -28,6 +38,7 @@ function closeNav() {
 }
 
 function lockNav() {
+    console.log("--[Locking Navbar]--");
     if(localStorage.getItem("lockNav") == null){
         localStorage.setItem("lockNav", "false");
     } else if(localStorage.getItem("lockNav") == 'false'){
@@ -60,42 +71,45 @@ function searchFunction() {
 }
 
 // Collapse Accordion
-var acc = document.getElementsByClassName("accordion");
-var i;
+function collapseAccordion(){
+    console.log("--[Collapse Accordion]--");
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
+    for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
 
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.closest(".accordion").nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-
-    // Change right-arrow to down-arrow for definition
-    if(this.classList.contains("definition") || this.classList.contains("example")){
-        var arrowIcon = this.querySelector("i");
-        if(arrowIcon.classList.contains("fa-caret-right")){
-            arrowIcon.classList.remove("fa-caret-right");
-            arrowIcon.classList.add("fa-caret-down");
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.closest(".accordion").nextElementSibling;
+        if (panel.style.display === "block") {
+        panel.style.display = "none";
         } else {
-            arrowIcon.classList.remove("fa-caret-down");
-            arrowIcon.classList.add("fa-caret-right");
+        panel.style.display = "block";
         }
-    }
 
-    if(this.classList.contains("wordButton")){
-        this.closest(".word").classList.toggle("selection");
-    }
+        // Change right-arrow to down-arrow for definition
+        if(this.classList.contains("definition") || this.classList.contains("example")){
+            var arrowIcon = this.querySelector("i");
+            if(arrowIcon.classList.contains("fa-caret-right")){
+                arrowIcon.classList.remove("fa-caret-right");
+                arrowIcon.classList.add("fa-caret-down");
+            } else {
+                arrowIcon.classList.remove("fa-caret-down");
+                arrowIcon.classList.add("fa-caret-right");
+            }
+        }
 
-  });
+        if(this.classList.contains("wordButton")){
+            this.closest(".word").classList.toggle("selection");
+        }
+
+    });
+    }
 }
 
 function openWordAccordion(word){
-    
+    console.log("--[Open Word Accordion]--");
     var element = document.getElementById(word);
     var display = element.style.display;
     
@@ -105,7 +119,7 @@ function openWordAccordion(word){
 }
 
 function editWordTitle(event, element) {
-    
+    console.log("--[Editing Word Title]--");
     var contents = element.closest("button").querySelector(".content");
     var isVisible = element.closest(".word").querySelector("form").style.display;
     
@@ -132,6 +146,7 @@ function hideMenu(word){
 
 // Check if user entered anythign into the edit box
 function applyFocusOutEvent(){
+    console.log("--[Applying FocusOut Event]--");
     var contents = document.getElementsByClassName("content");
     console.log("contents:", contents);
     for(var i = 0; i < contents.length; i++){
@@ -236,38 +251,232 @@ function applyFocusOutEvent(){
 // })
 
 // Toggle Bullet Point
-document.querySelectorAll(".fa-list-ul").forEach(item => {
-    item.addEventListener("click", e => {
-    e.preventDefault();
+function toggleBulletPoint(){
+    console.log("--[Toggling Bullet Point]--");
+    document.querySelectorAll(".fa-list-ul").forEach(item => {
+        item.addEventListener("click", e => {
+        e.preventDefault();
 
-    console.log(e.target);
+        console.log(e.target);
 
-    var word =  e.target.closest(".word");
-    var WordId = word.getAttribute("id");
-    var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
-    var Note = e.target.closest(".contents").querySelector(".replaceContent")
+        var word =  e.target.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = e.target.closest(".contents").querySelector(".replaceContent")
 
-    // Fetch API to send request to update definition
-    fetch(`Word/${WordId}/Note/${NoteId}/ToggleBullets`, {
-        method: 'POST',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/ToggleBullets`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        })
+        .then(res => {
+            console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            Note.innerHTML = result;
+            applyFocusOutEvent();
+            // $("#output").html(result);
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
     })
-    .then(res => {
-        console.log(res);
-        return res.text();
-    })
-    .then(result => {
-        console.log("result", result);
-        console.log("note:", Note);
-        Note.innerHTML = result;
-        applyFocusOutEvent();
-        // $("#output").html(result);
-    })
-    .catch(err => {
-        console.log("Error found: ", err);
     });
-  })
-});
+}
+
+// Indent Note
+function indentNote(){
+    console.log("--[Indenting Note]--");
+    document.querySelectorAll(".fa-indent").forEach(item => {
+        item.addEventListener("click", e => {
+        e.preventDefault();
+
+        console.log(e.target);
+
+        var word =  e.target.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = e.target.closest(".contents").querySelector(".replaceContent")
+
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/Indent`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        })
+        .then(res => {
+            console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            Note.innerHTML = result;
+            applyFocusOutEvent();
+            // $("#output").html(result);
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
+    })
+    });
+}
+
+// Outdent Note
+function outdentNote(){
+    console.log("--[Outdenting Note]--");
+    document.querySelectorAll(".fa-outdent").forEach(item => {
+        item.addEventListener("click", e => {
+        e.preventDefault();
+
+        console.log(e.target);
+
+        var word =  e.target.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = e.target.closest(".contents").querySelector(".replaceContent")
+
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/Outdent`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        })
+        .then(res => {
+            console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            Note.innerHTML = result;
+            applyFocusOutEvent();
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
+    })
+    });
+}
+
+// Delete Note
+function deleteNote(){
+    console.log("--[Deleting Note]--");
+    document.querySelectorAll(".fa-trash").forEach(item => {
+        item.addEventListener("click", e => {
+        e.preventDefault();
+
+        console.log(e.target);
+
+        var word =  e.target.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = e.target.closest(".contents").querySelector(".replaceContent")
+
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/DeleteNote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        })
+        .then(res => {
+            console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            document.getElementsByClassName("words")[0].innerHTML = result;
+            AddEventListeners();
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
+    })
+    });
+}
+
+// Change Style
+function changeStyle(){
+    console.log("--[Changing Note Style]--");
+    document.querySelectorAll(".fa-heading").forEach(item => {
+        item.addEventListener("click", e => {
+        e.preventDefault();
+
+        console.log(e.target);
+
+        var word =  e.target.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = e.target.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = e.target.closest(".contents").querySelector(".replaceContent")
+
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/ChangeStyle`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
+        })
+        .then(res => {
+            console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            
+            document.getElementsByClassName("words")[0].innerHTML = result;
+            AddEventListeners();
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
+    })
+    });
+}
+
+function updateAlignment(position, event){
+        console.log("position:", position);
+        console.log("event:", event);
+        var position = position;
+        var word =  event.closest(".word");
+        var WordId = word.getAttribute("id");
+        var NoteId = event.closest(".contents").querySelector(".content").getAttribute("id");
+        var Note = event.closest(".contents").querySelector(".replaceContent")
+
+        // Fetch API to send request to update definition
+        fetch(`Word/${WordId}/Note/${NoteId}/ChangeAlignment/${position}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            // body: JSON.stringify({NoteId: NoteId}, {WordId: WordId}, {Position: 2})
+        })
+        .then(res => {
+            // console.log(res);
+            return res.text();
+        })
+        .then(result => {
+            console.log("result", result);
+            console.log("note:", Note);
+            
+            document.getElementsByClassName("words")[0].innerHTML = result;
+            AddEventListeners();
+        })
+        .catch(err => {
+            console.log("Error found: ", err);
+        });
+}

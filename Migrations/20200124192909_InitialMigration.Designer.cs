@@ -9,7 +9,7 @@ using masterList.Models;
 namespace masterList.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200124003319_InitialMigration")]
+    [Migration("20200124192909_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,8 +25,14 @@ namespace masterList.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AlignPosition")
+                        .HasColumnType("int");
+
                     b.Property<string>("Content")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Style")
+                        .HasColumnType("int");
 
                     b.Property<int>("WordId")
                         .HasColumnType("int");

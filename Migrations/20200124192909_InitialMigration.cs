@@ -48,7 +48,9 @@ namespace masterList.Migrations
                     WordId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     isBullet = table.Column<bool>(nullable: false),
-                    indentLevel = table.Column<int>(nullable: false)
+                    indentLevel = table.Column<int>(nullable: false),
+                    Style = table.Column<int>(nullable: false),
+                    AlignPosition = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

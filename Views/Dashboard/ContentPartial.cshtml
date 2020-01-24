@@ -1,7 +1,7 @@
 @model Note
 
 @if(@Model.isBullet == true){
-<li class="content" contenteditable="true" id="@Model.NoteId">@Model.Content</li>
+<li class="content indent_@Model.indentLevel" contenteditable="true" id="@Model.NoteId">@Model.indentLevel @Model.Content</li>
 } else {
-<div class="content" contenteditable="true" id="@Model.NoteId">@Model.Content</div>
+<div class="content indent_@Model.indentLevel" contenteditable="true" id="@Model.NoteId">@Model.indentLevel @Model.Content</div>
 }

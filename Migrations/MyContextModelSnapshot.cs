@@ -23,8 +23,14 @@ namespace masterList.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AlignPosition")
+                        .HasColumnType("int");
+
                     b.Property<string>("Content")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Style")
+                        .HasColumnType("int");
 
                     b.Property<int>("WordId")
                         .HasColumnType("int");

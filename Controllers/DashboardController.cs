@@ -130,6 +130,77 @@ namespace masterList.Controllers
             return PartialView("ContentPartial", note);
         }
 
-        // note.indentLevel += 1;
+        [HttpPost("Word/{WordId}/Note/{NoteId}/Indent")]
+        public IActionResult IndentNote(int WordId, int NoteId)
+        {
+            Note note = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            if(note.indentLevel < 9){
+                note.indentLevel += 1;
+            } else {
+                note.indentLevel = 0;
+            }
+            dbContext.SaveChanges();
+            return PartialView("ContentPartial", note);
+        }
+        
+        [HttpPost("Word/{WordId}/Note/{NoteId}/Outdent")]
+        public IActionResult OutdentNote(int WordId, int NoteId)
+        {
+            Note note = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            if(note.indentLevel > 0){
+                note.indentLevel -= 1;
+            }
+            dbContext.SaveChanges();
+            return PartialView("ContentPartial", note);
+        }
+        
+        [HttpPost("Word/{WordId}/Note/{NoteId}/DeleteNote")]
+        public IActionResult DeleteNote(int WordId, int NoteId)
+        {
+            Note noteToDelete = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            dbContext.Notes.Remove(noteToDelete);
+            dbContext.SaveChanges();
+
+            var words = dbContext.Words
+                .Include(word => word.Notes)
+                .ToList();
+            return PartialView("WordPartial", words);
+        }
+    
+        [HttpPost("Word/{WordId}/Note/{NoteId}/ChangeStyle")]
+        public IActionResult ChangeNoteStyle(int WordId, int NoteId)
+        {
+            Note note = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            if(note.Style < 4){
+                note.Style += 1;
+            } else {
+                note.Style = 0;
+            }
+            dbContext.SaveChanges();
+
+            var words = dbContext.Words
+                .Include(word => word.Notes)
+                .ToList();
+            return PartialView("WordPartial", words);
+        }
+       
+        [HttpPost("Word/{WordId}/Note/{NoteId}/ChangeAlignment/{Position}")]
+        public IActionResult ChangeAlignment(int WordId, int NoteId, int Position)
+        {
+            Note note = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            if(Position == 0){
+                note.AlignPosition = 0;
+            } else if(Position == 1){
+                note.AlignPosition = 1;
+            } else if(Position == 2){
+                note.AlignPosition = 2;
+            }
+            dbContext.SaveChanges();
+
+            var words = dbContext.Words
+                .Include(word => word.Notes)
+                .ToList();
+            return PartialView("WordPartial", words);
+        }
     }
 }

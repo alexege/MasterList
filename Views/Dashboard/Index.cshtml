@@ -15,65 +15,9 @@
 
     <h1 id="projectName">Master List</h1>
 
-
-    @foreach(var word in Model)
-    {
-        <div class="word" id="@word.WordId">
-        <div class="topLeft cornerPiece"></div>
-        <div class="topRight cornerPiece"></div>
-        <div class="bottomLeft cornerPiece"></div>
-        <div class="bottomRight cornerPiece"></div>
-
-        @* <button id="@word.Title" class="accordion accordStyle wordButton" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)"> *@
-        <button id="@word.Title" class="accordion accordStyle wordButton">
-
-        <div class="contents title" contenteditable="true" onclick="event.stopPropagation();">
-            @word.Title
-        </div>
-
-        <div class="menu">
-            <a onclick="editWordTitle(event, this); event.stopPropagation();">
-                <i class="fas fa-edit"></i>
-            </a>
-            <a href="/Word/Delete/@word.WordId">
-                <i class="fas fa-trash-alt"></i>
-            </a>
-        </div>
-
-        </button>
-        <div class="panel">
-
-            @foreach(var note in @word.Notes)
-            {
-                <div class="note" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
-                <div class="contents">
-                    <div class="menu">
-                        <i class="fas fa-list-ul"></i>
-                        <i class="fas fa-indent"></i>
-                        <i class="fas fa-outdent"></i>
-                        <i class="fas fa-trash"></i>
-                    </div>
-                    @* @note.isBullet *@
-                    <div class="replaceContent">
-                        @if(note.isBullet == true){
-                            <li class="content" contenteditable="true" id="@note.NoteId">@note.Content</li>
-                        } else {
-                            <div class="content" contenteditable="true" id="@note.NoteId">@note.Content</div>
-                        }
-                    </div>
-                </div>
-                </div>
-            }
-
-            <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
-                <input class="form-control addNoteInput" type="text" name="Content" id="Content" placeholder="Enter Note Content here">
-                <button class="btn">Submit</button>
-            </form>
-
-        </div>
-
-        </div>
-    }
+    <div class="words">
+        <partial name="WordPartial"/>
+    </div>
 
     <form asp-action="AddWord" controller="Dashboard" method="POST">
         <label for="Title">Title</label><br>

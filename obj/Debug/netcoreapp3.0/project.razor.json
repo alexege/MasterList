@@ -14409,6 +14409,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Dashboard\\WordPartial.cshtml",
+      "TargetPath": "Views\\Dashboard\\WordPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
