@@ -29,6 +29,12 @@ namespace masterList.Migrations
                     b.Property<int>("WordId")
                         .HasColumnType("int");
 
+                    b.Property<int>("indentLevel")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isBullet")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("NoteId");
 
                     b.HasIndex("WordId");

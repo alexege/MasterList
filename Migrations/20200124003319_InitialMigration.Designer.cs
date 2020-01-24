@@ -9,7 +9,7 @@ using masterList.Models;
 namespace masterList.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200123214010_InitialMigration")]
+    [Migration("20200124003319_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,12 @@ namespace masterList.Migrations
 
                     b.Property<int>("WordId")
                         .HasColumnType("int");
+
+                    b.Property<int>("indentLevel")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isBullet")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("NoteId");
 

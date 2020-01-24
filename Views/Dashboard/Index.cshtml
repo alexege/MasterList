@@ -15,6 +15,7 @@
 
     <h1 id="projectName">Master List</h1>
 
+
     @foreach(var word in Model)
     {
         <div class="word" id="@word.WordId">
@@ -23,7 +24,8 @@
         <div class="bottomLeft cornerPiece"></div>
         <div class="bottomRight cornerPiece"></div>
 
-        <button id="@word.Title" class="accordion accordStyle wordButton" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+        @* <button id="@word.Title" class="accordion accordStyle wordButton" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)"> *@
+        <button id="@word.Title" class="accordion accordStyle wordButton">
 
         <div class="contents title" contenteditable="true" onclick="event.stopPropagation();">
             @word.Title
@@ -43,40 +45,34 @@
 
             @foreach(var note in @word.Notes)
             {
-                @* <button class="accordion">@note.Content</button> *@
-                <div class="contents" contenteditable="true" id="definitionBox">@note.Content</div>
-
+                <div class="note" onmouseenter="showMenu(this)" onmouseleave="hideMenu(this)">
+                <div class="contents">
+                    <div class="menu">
+                        <i class="fas fa-list-ul"></i>
+                        <i class="fas fa-indent"></i>
+                        <i class="fas fa-outdent"></i>
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    @* @note.isBullet *@
+                    <div class="replaceContent">
+                        @if(note.isBullet == true){
+                            <li class="content" contenteditable="true" id="@note.NoteId">@note.Content</li>
+                        } else {
+                            <div class="content" contenteditable="true" id="@note.NoteId">@note.Content</div>
+                        }
+                    </div>
+                </div>
+                </div>
             }
 
-            @* <button class="accordion definition">
-                <h4>
-                    <i class="fas fa-caret-right"></i>
-                    Definition
-                </h4>
-            </button>
-            <div class="panel">
-                <div class="contents" contenteditable="true" id="definitionBox">@word.Definition</div>
-            </div>
-            
-            <button class="accordion example">
-                <h4>
-                    <i class="fas fa-caret-right"></i>
-                    Example
-                </h4>
-            </button>
-            <div class="panel">
-                <div class="contents" contenteditable="true">@word.Example</div>
-            </div> *@
-        </div>
+            <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+                <input class="form-control addNoteInput" type="text" name="Content" id="Content" placeholder="Enter Note Content here">
+                <button class="btn">Submit</button>
+            </form>
 
         </div>
 
-        <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
-        <label for="Content">Content</label><br>
-        <input class="form-control" type="text" name="Content" id="Content">
-
-        <button class="btn">Submit</button>
-        </form>
+        </div>
     }
 
     <form asp-action="AddWord" controller="Dashboard" method="POST">

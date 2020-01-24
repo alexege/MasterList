@@ -36,7 +36,7 @@ namespace masterList.Controllers
             // return View(notes);
         }
 
-        [HttpPost("word/new")]
+        [HttpPost("Word/New")]
         public IActionResult AddWord(Word newWord)
         {
             if(ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace masterList.Controllers
             return View("Index", "Dashboard");
         }
 
-        [HttpPost("word/note/new")]
+        [HttpPost("Word/Note/New")]
         public IActionResult AddNote(Note newNote, int WordId)
         {
             if(ModelState.IsValid)
@@ -80,18 +80,29 @@ namespace masterList.Controllers
         }
         
         [HttpPost("Word/{WordId}/UpdateNote/{NoteId}")]
-        public IActionResult UpdateNote([FromBody] Word editWord, int WordId)
+        public IActionResult UpdateNote([FromBody] Note editNote, int WordId, int NoteId)
         {
-            Word wordToEdit = dbContext.Words
-                .FirstOrDefault(w => w.WordId == WordId);
+            Note noteToEdit = dbContext.Notes
+                .FirstOrDefault(n => n.NoteId == NoteId);
 
             if(ModelState.IsValid)
             {
-                wordToEdit.Title = editWord.Title;
+                noteToEdit.Content = editNote.Content;
                 dbContext.SaveChanges();
 
                 return RedirectToAction("Index", "Dashboard");
             }
+            return RedirectToAction("Index");
+        }
+        
+        [HttpDelete("Word/{WordId}/DeleteNote/{NoteId}")]
+        public IActionResult DeleteNote([FromBody] Note editNote, int WordId, int NoteId)
+        {
+            Note noteToDelete = dbContext.Notes
+                .FirstOrDefault(n => n.NoteId == NoteId);
+            dbContext.Notes.Remove(noteToDelete);
+            dbContext.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -104,5 +115,21 @@ namespace masterList.Controllers
             
             return RedirectToAction("Index");
         }
+
+        [HttpPost("Word/{WordId}/Note/{NoteId}/ToggleBullets")]
+        public IActionResult ToggleBullets(int WordId, int NoteId)
+        {
+            Note note = dbContext.Notes.FirstOrDefault(n => n.NoteId == NoteId);
+            if(note.isBullet == false){
+                note.isBullet = true;
+            } else {
+                note.isBullet = false;
+            }
+            dbContext.SaveChanges();
+            // return RedirectToAction("Index");
+            return PartialView("ContentPartial", note);
+        }
+
+        // note.indentLevel += 1;
     }
 }

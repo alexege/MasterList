@@ -1,0 +1,7 @@
+@model Note
+
+@if(@Model.isBullet == true){
+<li class="content" contenteditable="true" id="@Model.NoteId">@Model.Content</li>
+} else {
+<div class="content" contenteditable="true" id="@Model.NoteId">@Model.Content</div>
+}

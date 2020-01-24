@@ -14389,6 +14389,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Dashboard\\ContentPartial.cshtml",
+      "TargetPath": "Views\\Dashboard\\ContentPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\alexe\\Documents\\CodingDojo\\Projects\\masterList\\Views\\Home\\Register.cshtml",
       "TargetPath": "Views\\Home\\Register.cshtml",
       "FileKind": "mvc"

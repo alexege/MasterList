@@ -330,8 +330,8 @@ button:hover {
 } */
 
 .content {
-  padding: 0 18px;
-  max-height: 0;
+  /* padding: 0 18px; */
+  /* max-height: 0; */
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   background-color: #f1f1f1;
@@ -356,6 +356,10 @@ button:hover {
 }
 
 .panel .contents {
+  width: 100%;
+}
+
+.panel .contents .content {
   white-space: pre;
   width: 100%;
 }

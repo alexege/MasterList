@@ -46,7 +46,9 @@ namespace masterList.Migrations
                     NoteId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     WordId = table.Column<int>(nullable: false),
-                    Content = table.Column<string>(nullable: true)
+                    Content = table.Column<string>(nullable: true),
+                    isBullet = table.Column<bool>(nullable: false),
+                    indentLevel = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

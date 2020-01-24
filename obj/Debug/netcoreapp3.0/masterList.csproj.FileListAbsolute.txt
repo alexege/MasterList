@@ -47,3 +47,4 @@ C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp3.0\
 C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp3.0\Razor\Views\Home\Register.cshtml.g.cs
 C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp3.0\Razor\Views\Dashboard\SideNavPartial.cshtml.g.cs
 C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp3.0\Razor\Views\Dashboard\Content.cshtml.g.cs
+C:\Users\alexe\Documents\CodingDojo\Projects\masterList\obj\Debug\netcoreapp3.0\Razor\Views\Dashboard\ContentPartial.cshtml.g.cs
