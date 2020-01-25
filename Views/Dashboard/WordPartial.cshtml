@@ -2,7 +2,7 @@
 
 @foreach(var word in Model)
     {
-        <div class="word" id="@word.WordId">
+        <div class="word" id="@word.WordId" onmouseenter="showInputField(this)" onmouseleave="hideInputField(this)">
         <div class="topLeft cornerPiece"></div>
         <div class="topRight cornerPiece"></div>
         <div class="bottomLeft cornerPiece"></div>
@@ -33,12 +33,24 @@
                 <div class="contents">
                     <div class="menu">
                         <i class="fas fa-list-ul"></i>
-                        <i class="fas fa-outdent"></i>@note.indentLevel
+                        <i class="fas fa-outdent"></i>
                         <i class="fas fa-indent"></i>
-                        <i class="fas fa-heading"></i>@note.Style
-                        @note.AlignPosition<i class="fas fa-align-left" onclick="updateAlignment(0, this)"></i>
-                        <i class="fas fa-align-center" onclick="updateAlignment(1, this)"></i>
-                        <i class="fas fa-align-right" onclick="updateAlignment(2, this)"></i>
+                        <i class="fas fa-heading"></i>
+                        @if(note.AlignPosition == 0){
+                            <i class="fas fa-align-left pressed" onclick="updateAlignment(0, this)"></i>
+                        } else {
+                            <i class="fas fa-align-left" onclick="updateAlignment(0, this)"></i>
+                        }
+                        @if(note.AlignPosition == 1){
+                            <i class="fas fa-align-center pressed" onclick="updateAlignment(1, this)"></i>
+                        } else {
+                            <i class="fas fa-align-center" onclick="updateAlignment(1, this)"></i>
+                        }
+                        @if(note.AlignPosition == 2){
+                            <i class="fas fa-align-right pressed" onclick="updateAlignment(2, this)"></i>
+                        } else {
+                            <i class="fas fa-align-right" onclick="updateAlignment(2, this)"></i>
+                        }
                         <i class="fas fa-trash"></i>
                     </div>
 
@@ -55,10 +67,11 @@
                     } else {
 
                         @if(note.isBullet == true){
-                            <li class="content align_@note.AlignPosition indent_@note.indentLevel" contenteditable="true" id="@note.NoteId">@note.indentLevel @note.Content</li>
+                            <li class="content align_@note.AlignPosition indent_@note.indentLevel" contenteditable="true" id="@note.NoteId">@note.Content</li>
                         } else {
-                            <div class="content align_@note.AlignPosition indent_@note.indentLevel" contenteditable="true" id="@note.NoteId">@note.indentLevel @note.Content</div>
+                            <div class="content align_@note.AlignPosition indent_@note.indentLevel" contenteditable="true" id="@note.NoteId">@note.Content</div>
                         }
+
                     }
 
                     </div>
@@ -68,7 +81,6 @@
 
             <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
                 <input class="form-control addNoteInput" type="text" name="Content" id="Content" placeholder="Enter Note Content here">
-                <button class="btn">Submit</button>
             </form>
 
         </div>

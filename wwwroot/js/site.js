@@ -15,6 +15,7 @@ function AddEventListeners(){
     outdentNote();
     deleteNote();
     changeStyle();
+    AddNote();
 }
 
 function toggleNavOpen() {
@@ -35,6 +36,18 @@ function openNav() {
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+}
+
+function showInputField(e) {
+    console.log("Show inputfield");
+    e.querySelector(".addNoteInput").classList.add("visible");
+    e.querySelector(".addNoteInput").classList.remove("hidden");
+}
+
+function hideInputField(e) {
+    console.log("Hide inputfield");
+    e.querySelector(".addNoteInput").classList.remove("visible");
+    e.querySelector(".addNoteInput").classList.add("hidden");
 }
 
 function lockNav() {
@@ -449,34 +462,81 @@ function changeStyle(){
 }
 
 function updateAlignment(position, event){
-        console.log("position:", position);
-        console.log("event:", event);
-        var position = position;
-        var word =  event.closest(".word");
-        var WordId = word.getAttribute("id");
-        var NoteId = event.closest(".contents").querySelector(".content").getAttribute("id");
-        var Note = event.closest(".contents").querySelector(".replaceContent")
+    console.log("position:", position);
+    console.log("event:", event);
+    var position = position;
+    var word =  event.closest(".word");
+    var WordId = word.getAttribute("id");
+    var NoteId = event.closest(".contents").querySelector(".content").getAttribute("id");
+    var Note = event.closest(".contents").querySelector(".replaceContent")
 
-        // Fetch API to send request to update definition
-        fetch(`Word/${WordId}/Note/${NoteId}/ChangeAlignment/${position}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            // body: JSON.stringify({NoteId: NoteId}, {WordId: WordId}, {Position: 2})
-        })
-        .then(res => {
-            // console.log(res);
-            return res.text();
-        })
-        .then(result => {
-            console.log("result", result);
-            console.log("note:", Note);
-            
-            document.getElementsByClassName("words")[0].innerHTML = result;
-            AddEventListeners();
-        })
-        .catch(err => {
-            console.log("Error found: ", err);
-        });
+    // Fetch API to send request to update definition
+    fetch(`Word/${WordId}/Note/${NoteId}/ChangeAlignment/${position}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        // body: JSON.stringify({NoteId: NoteId}, {WordId: WordId}, {Position: 2})
+    })
+    .then(res => {
+        // console.log(res);
+        return res.text();
+    })
+    .then(result => {
+        console.log("result", result);
+        console.log("note:", Note);
+        
+        document.getElementsByClassName("words")[0].innerHTML = result;
+        AddEventListeners();
+    })
+    .catch(err => {
+        console.log("Error found: ", err);
+    });
 }
+
+function AddNote(){
+    document.querySelectorAll(".addNoteInput").forEach(element => {
+        element.addEventListener("focusout", e => {
+            
+            console.log("keycode:", e.keyCode);
+            console.log("Submitting new note");
+
+            console.log(e.target.value);
+            var Content = e.target.value;
+
+            var WordId = e.target.closest(".word").getAttribute("id");
+
+            fetch(`Word/${WordId}/Note/New`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({Content: Content})
+            })
+            .then(res => {
+                console.log(res);
+                return res.text();
+            })
+            .then(result => {
+                console.log("result", result);
+                document.getElementsByClassName("words")[0].innerHTML = result;
+                AddEventListeners();
+            })
+            .catch(err => {
+                console.log("Error found: ", err);
+            });
+
+        })
+    });
+}
+
+// document.querySelectorAll(".addNoteInput").forEach(e => {
+//     e.preventDefault();
+//     e.addEventListener("keydown", function(event){
+//         console.log("Keycode:", event.keyCode);
+//         if(event.keyCode == 13){
+//             event.preventDefault();
+//             console.log("Submit new note");
+//         }
+//     });
+// })

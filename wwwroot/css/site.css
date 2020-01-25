@@ -337,6 +337,10 @@ button:hover {
   background-color: #f1f1f1;
 }
 
+.content:hover {
+  background-color: white;
+}
+
 /* Style the accordion panel. Note: hidden by default */
 .panel {
   padding: 0 18px;
@@ -419,4 +423,40 @@ button:hover {
 }
 .align_2 {
   text-align: right;
+}
+
+/* Note Input
+-------------------------------------------------- */
+.visible {
+  /* display: block; */
+  height: auto;
+  opacity: 1;
+  animation: all 5s;
+}
+
+.hidden {
+  /* display: none; */
+  height: 0;
+  opacity: 0;
+  animation: all 5s;
+}
+
+.pressed {
+  background-color: #f1f1f1;
+  color: black;
+  /* border: 1px solid black; */
+  border-radius: 2px;
+  padding: 3px;
+  box-shadow: 2px 2px 4px black;
+  cursor: pointer;
+}
+
+i {
+  cursor: pointer;
+}
+
+.addNoteInput {
+  margin: 10px;
+  border: none;
+  background-color: white;
 }

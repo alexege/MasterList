@@ -48,8 +48,8 @@ namespace masterList.Controllers
             return View("Index", "Dashboard");
         }
 
-        [HttpPost("Word/Note/New")]
-        public IActionResult AddNote(Note newNote, int WordId)
+        [HttpPost("Word/{WordId}/Note/New")]
+        public IActionResult AddNote([FromBody] Note newNote, int WordId)
         {
             if(ModelState.IsValid)
             {
@@ -58,7 +58,15 @@ namespace masterList.Controllers
                 dbContext.Notes.Add(newNote);
                 dbContext.SaveChanges();
                 
-                return RedirectToAction("Index", "Dashboard");
+                // return RedirectToAction("Index", "Dashboard");
+                var words = dbContext.Words
+                .Include(word => word.Notes)
+                .ToList();
+
+                // Reorder the notes so they stay in place
+                words.ForEach(n => n.Notes = n.Notes.OrderBy(ni => ni.NoteId).ToList());
+
+                return PartialView("WordPartial", words);
             }
             return View("Index", "Dashboard");
         }
@@ -181,6 +189,10 @@ namespace masterList.Controllers
             var words = dbContext.Words
                 .Include(word => word.Notes)
                 .ToList();
+
+            // Reorder the notes so they stay in place
+            words.ForEach(n => n.Notes = n.Notes.OrderBy(ni => ni.NoteId).ToList());
+
             return PartialView("WordPartial", words);
         }
        
@@ -200,6 +212,10 @@ namespace masterList.Controllers
             var words = dbContext.Words
                 .Include(word => word.Notes)
                 .ToList();
+
+            // Reorder the notes so they stay in place
+            words.ForEach(n => n.Notes = n.Notes.OrderBy(ni => ni.NoteId).ToList());
+            
             return PartialView("WordPartial", words);
         }
     }

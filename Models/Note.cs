@@ -8,7 +8,7 @@ namespace masterList.Models
         public int NoteId {get; set;}
         public int WordId { get; set; }
 
-        [MinLength(1, ErrorMessage="Content cannot be left blank")]
+        // [MinLength(1, ErrorMessage="Content cannot be left blank")]
         public string Content { get; set; }
         public bool isBullet { get; set; }
         public int indentLevel { get; set; }
