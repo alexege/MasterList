@@ -24,7 +24,7 @@ namespace masterList.Controllers
             ViewBag.LastName = HttpContext.Session.GetString("LastName");
             ViewBag.UserId = SessionUser;
 
-            var words = dbContext.Words
+            var words = dbContext.Words.OrderBy(w => w.Title)
                 .Include(word => word.Notes)
                 .ToList();
 
@@ -42,6 +42,10 @@ namespace masterList.Controllers
             if(ModelState.IsValid)
             {
                 dbContext.Words.Add(newWord);
+                // Note newNote = new Note();
+                // newNote.WordId = newWord.WordId;
+                // newNote.Content = "Dictionary";
+                // dbContext.Notes.Add(newNote);
                 dbContext.SaveChanges();
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -59,7 +63,7 @@ namespace masterList.Controllers
                 dbContext.SaveChanges();
                 
                 // return RedirectToAction("Index", "Dashboard");
-                var words = dbContext.Words
+                var words = dbContext.Words.OrderBy(w => w.Title)
                 .Include(word => word.Notes)
                 .ToList();
 
