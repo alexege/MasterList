@@ -9,13 +9,13 @@ $(document).ready(function(){
 
 function AddEventListeners(){
     collapseAccordion();
-    // applyFocusOutEvent();
-    // toggleBulletPoint();
-    // indentNote();
-    // outdentNote();
-    // deleteNote();
-    // changeStyle();
-    // AddNote();
+    applyFocusOutEvent();
+    toggleBulletPoint();
+    indentNote();
+    outdentNote();
+    deleteNote();
+    changeStyle();
+    AddNote();
 }
 
 function toggleNavOpen() {

@@ -1,3 +1,4 @@
+<div style="outline: 2px solid lime">
 @model Note
 
 @if(@Model.isBullet == true){
@@ -5,3 +6,4 @@
 } else {
 <div class="content align_@Model.AlignPosition indent_@Model.indentLevel" contenteditable="true" id="@Model.NoteId">@Model.Content</div>
 }
+</div>

@@ -213,11 +213,12 @@ namespace masterList.Controllers
             }
             dbContext.SaveChanges();
 
-            var words = dbContext.Words
+            var words = dbContext.Words.OrderBy(w => w.Title)
                 .Include(word => word.Notes)
                 .ToList();
 
             // Reorder the notes so they stay in place
+            // words.ForEach(n => n.Notes = n.Notes.OrderBy(ni => ni.NoteId).ToList());
             words.ForEach(n => n.Notes = n.Notes.OrderBy(ni => ni.NoteId).ToList());
             
             return PartialView("WordPartial", words);
