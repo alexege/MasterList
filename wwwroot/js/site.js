@@ -39,13 +39,11 @@ function closeNav() {
 }
 
 function showInputField(e) {
-    console.log("Show inputfield");
     e.querySelector(".addNoteInput").classList.add("visible");
     e.querySelector(".addNoteInput").classList.remove("hidden");
 }
 
 function hideInputField(e) {
-    console.log("Hide inputfield");
     e.querySelector(".addNoteInput").classList.remove("visible");
     e.querySelector(".addNoteInput").classList.add("hidden");
 }
@@ -462,6 +460,7 @@ function changeStyle(){
 }
 
 function updateAlignment(position, event){
+    const active_buttons = findActive();
     console.log("position:", position);
     console.log("event:", event);
     var position = position;
@@ -483,10 +482,11 @@ function updateAlignment(position, event){
         return res.text();
     })
     .then(result => {
-        console.log("result", result);
-        console.log("note:", Note);
+        // console.log("result", result);
+        // console.log("note:", Note);
         
         document.getElementsByClassName("words")[0].innerHTML = result;
+        activateActive(active_buttons);
         AddEventListeners();
     })
     .catch(err => {
@@ -540,3 +540,46 @@ function AddNote(){
 //         }
 //     });
 // })
+
+// Find all active buttons and keep track of them
+function findActive(){
+    console.log("Finding active buttons");
+    let buttons = document.querySelectorAll("button");
+    let list_of_active_buttons = [];
+    for(let i = 0; i < buttons.length; i++){
+        // console.log(buttons[i].getAttribute("id"));
+        if(buttons[i].classList.contains("active")){
+            list_of_active_buttons.push(buttons[i].id);
+        }
+    }
+
+    // if(document.getElementById("Algorithm").classList.contains("active")){
+    //     console.log("It contains active!");
+    // }
+
+    console.log("List of active buttons:", list_of_active_buttons);
+    return list_of_active_buttons;
+}
+
+function activateActive(list_of_active_buttons){
+    console.log("list:", list_of_active_buttons);
+    for(const buttonId in list_of_active_buttons){
+        console.log("button:id:", buttonId);
+        document.getElementById(list_of_active_buttons[buttonId]).closest(".word").querySelector(".panel").style.display = "block";
+        // console.log(list_of_active_buttons[buttonId].getAttribute("id"));
+        // console.log(list_of_active_buttons[buttonIdx]);
+        // console.log("parent:", list_of_active_buttons[buttonIdx].parentElement);
+        // console.log(list_of_active_buttons[buttonId].closest(".word").querySelector(".panel"));
+        // console.log(list_of_active_buttons[buttonIdx].closest(".word").querySelector(".panel").style.display);
+        // list_of_active_buttons[buttonId].closest(".word").querySelector(".panel").style.display = "block";
+        // if()
+        // /* Toggle between hiding and showing the active panel */
+        // var panel = this.closest(".accordion").nextElementSibling;
+        // if (panel.style.display === "block") {
+        // panel.style.display = "none";
+        // } else {
+        // panel.style.display = "block";
+        // }
+    }
+    // let active_buttons = document.
+}

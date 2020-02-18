@@ -1,8 +1,6 @@
 <div style="outline: 2px solid red">
 @model List<Word>
 
-    <p>@Model</p>
-
 @foreach(var word in Model)
     {
         <div class="word" id="@word.WordId" onmouseenter="showInputField(this)" onmouseleave="hideInputField(this)">
@@ -83,7 +81,7 @@
             }
 
             <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
-                <input class="form-control addNoteInput" type="text" name="Content" id="Content" placeholder="Enter Note Content here">
+                <input class="form-control addNoteInput" type="text" name="Content" placeholder="Enter Note Content here">
             </form>
 
         </div>

@@ -174,6 +174,7 @@ namespace masterList.Controllers
             dbContext.SaveChanges();
 
             var words = dbContext.Words
+                .OrderBy(word => word.Title)
                 .Include(word => word.Notes)
                 .ToList();
             return PartialView("WordPartial", words);
@@ -191,6 +192,7 @@ namespace masterList.Controllers
             dbContext.SaveChanges();
 
             var words = dbContext.Words
+                .OrderBy(word => word.Title)
                 .Include(word => word.Notes)
                 .ToList();
 
@@ -213,7 +215,8 @@ namespace masterList.Controllers
             }
             dbContext.SaveChanges();
 
-            var words = dbContext.Words.OrderBy(w => w.Title)
+            var words = dbContext.Words
+                .OrderBy(w => w.Title)
                 .Include(word => word.Notes)
                 .ToList();
 
