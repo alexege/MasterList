@@ -91,7 +91,9 @@ body {
   margin: 0 auto;
   box-shadow: 2px 2px 4px black;
   border-radius: 5px;
-  padding: 2rem;
+  padding: 3rem;
+  /* background: url('https://4.bp.blogspot.com/-8fsB8RA-laE/WogA3ZXmtII/AAAAAAAAAIA/MhKaUcY8lVAH8DDDyNB62IT3zlRhznq_QCLcBGAs/s1600/mar.gif');
+  background-size: cover; */
 }
 
 .input-container {
