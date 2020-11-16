@@ -7,6 +7,16 @@ $(document).ready(function(){
     AddEventListeners();
 })
 
+
+// document.getElementsByClassName("addWordForm").forEach(item => {
+//     item.onkeypress = function(e){
+//     console.log(e.keyCode);
+//     console.log("Preventing default action");
+//     if(e.keyCode == 13){
+//         e.preventDefault();
+//     }
+// };
+
 function AddEventListeners(){
     collapseAccordion();
     applyFocusOutEvent();
@@ -95,8 +105,10 @@ function collapseAccordion(){
         var panel = this.closest(".accordion").nextElementSibling;
         if (panel.style.display === "block") {
         panel.style.display = "none";
+        this.style.borderBottom = "0px solid black";
         } else {
         panel.style.display = "block";
+        this.style.borderBottom = "2px solid black";
         }
 
         // Change right-arrow to down-arrow for definition
@@ -171,14 +183,15 @@ function applyFocusOutEvent(){
             
             // Listen for Up key press
             if(e.keyCode == 38){
-                if(this.previousElementSibling.tagName == "DIV"){
-                    this.previousElementSibling.focus();
+                if(this.closest(".content").tagName == "DIV"){
+                    console.log(this.previousElementSibling);
+                    // console.log(this.closest(".content").closest(".content"));
                 } else {
                     console.log("Next element is not an editable div");
                 }
             }
 
-            // Listen for  key press
+            // Listen for Down key press
             if(e.keyCode == 40){
                 if(this.nextElementSibling.tagName == "DIV"){
                     this.nextElementSibling.focus();
@@ -385,6 +398,8 @@ function deleteNote(){
         item.addEventListener("click", e => {
         e.preventDefault();
 
+        const active_buttons = findActive();
+
         console.log(e.target);
 
         var word =  e.target.closest(".word");
@@ -408,6 +423,7 @@ function deleteNote(){
             console.log("result", result);
             console.log("note:", Note);
             document.getElementsByClassName("words")[0].innerHTML = result;
+            activateActive(active_buttons);
             AddEventListeners();
         })
         .catch(err => {
@@ -419,12 +435,15 @@ function deleteNote(){
 
 // Change Style
 function changeStyle(){
+
     console.log("--[Changing Note Style]--");
     document.querySelectorAll(".fa-heading").forEach(item => {
         item.addEventListener("click", e => {
         e.preventDefault();
 
-        console.log(e.target);
+        const active_buttons = findActive();
+
+        console.log("active:", active_buttons);
 
         var word =  e.target.closest(".word");
         var WordId = word.getAttribute("id");
@@ -440,14 +459,15 @@ function changeStyle(){
             body: JSON.stringify({NoteId: NoteId}, {WordId: WordId})
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             return res.text();
         })
         .then(result => {
-            console.log("result", result);
-            console.log("note:", Note);
+            // console.log("result", result);
+            // console.log("note:", Note);
             
             document.getElementsByClassName("words")[0].innerHTML = result;
+            activateActive(active_buttons);
             AddEventListeners();
         })
         .catch(err => {
@@ -496,30 +516,45 @@ function updateAlignment(position, event){
 function AddNote(){
     document.querySelectorAll(".addNoteInput").forEach(element => {
         element.addEventListener("focusout", e => {
+            e.preventDefault();
+
+            let currentElementId = e.target.parentElement.getAttribute("id");
+            console.log(e);
+            console.log(e.target);
+
+            console.log("id:", currentElementId);
+
+            const active_buttons = findActive();
             // console.log("keycode:", e.keyCode);
             console.log("Submitting new note");
 
-            var Content = e.target.value;
-            var WordId = e.target.closest(".word").getAttribute("id");
+            const Content = e.target.value;
+            const WordId = e.target.closest(".word").getAttribute("id");
+            const addNoteInput = e.target.closest(".word").querySelector(".addNoteInput").getAttribute("id");
 
-            fetch(`Word/${WordId}/Note/New`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify({Content: Content})
-            })
-            .then(res => {
-                return res.text();
-            })
-            .then(result => {
-                document.getElementsByClassName("words")[0].innerHTML = result;
-                AddEventListeners();
-            })
-            .catch(err => {
-                console.log("Error found: ", err);
-            });
+            //If the user entered any information. Else, ignore
+            if(Content.length > 0){
 
+                fetch(`Word/${WordId}/Note/New`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify({Content: Content})
+                })
+                .then(res => {
+                    return res.text();
+                })
+                .then(result => {
+                    document.getElementsByClassName("words")[0].innerHTML = result;
+                    activateActive(active_buttons);
+                    AddEventListeners();
+                    // document.getElementById(currentElementId).focus();
+                })
+                .catch(err => {
+                    console.log("Error found: ", err);
+                });
+            }
         })
     });
 }
@@ -533,6 +568,11 @@ function findActive(){
         if(buttons[i].classList.contains("active")){
             list_of_active_buttons.push(buttons[i].id);
         }
+    }
+    if(list_of_active_buttons.length > 0){
+        console.log(list_of_active_buttons.length + " active buttons found!")
+    } else {
+        console.log("No active buttons found");
     }
     return list_of_active_buttons;
 }

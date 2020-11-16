@@ -1,4 +1,3 @@
-<div style="outline: 2px solid red">
 @model List<Word>
 
 @foreach(var word in Model)
@@ -72,7 +71,6 @@
                         } else {
                             <div class="content align_@note.AlignPosition indent_@note.indentLevel" contenteditable="true" id="@note.NoteId">@note.Content</div>
                         }
-
                     }
 
                     </div>
@@ -80,7 +78,7 @@
                 </div>
             }
 
-            <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST">
+            <form asp-action="AddNote" asp-route-WordId="@word.WordId" controller="Dashboard" method="POST" class="addWordForm" id="word-@word.WordId">
                 <input class="form-control addNoteInput" type="text" name="Content" placeholder="Enter Note Content here">
             </form>
 
@@ -88,4 +86,3 @@
 
         </div>
     }
-</div>

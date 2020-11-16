@@ -1,17 +1,18 @@
-@model List<Word>    
-        
+@model List<Word>
+
     @* SideNav Toggle Div *@
     <div onmouseenter="toggleNavOpen()" style="width: 5vw; height: 100vh; position: absolute; left: 0; top: 0; position: fixed;"></div>
 
     <div id="mySidenav" class="sidenav" onmouseleave="toggleNavClosed()">
 
         <a onclick="lockNav()" id="navToggleButton"><i class="fas fa-lock-open"></i></a>
-        <h2>Index</h2>
+        <h2 class="title">Index</h2>
         <input type="text" id="searchBar" onClick="this.select();" onkeyup="searchFunction()" placeholder="Search.." class="searchbar">
 
         <div id="sideNavContents">
 
         @foreach(var word in Model){
+            @* <a href="#">@word.Title[0]</a> *@
             <a href="#@word.Title" onclick="openWordAccordion('@word.Title');">@word.Title</a>
         }
         </div>

@@ -182,7 +182,7 @@ p {
 /* .sidenav */
 #sideNavContents a {
   text-decoration: none;
-  text-align: center;
+  text-align: left;
   display: block;
   padding: 0.25rem 1rem;
   /* border: 1px solid black; */
@@ -336,7 +336,8 @@ button:hover {
   /* max-height: 0; */
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  background-color: transparent;
 }
 
 .content:hover {
